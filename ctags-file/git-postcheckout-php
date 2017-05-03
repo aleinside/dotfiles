@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -x
+
+ctags -f .tags \
+  -R \
+  --exclude=app \
+  --exclude=.git \
+  --exclude=web \
+  --exclude=node_modules \
+  --exclude=vendor \
+  --exclude=features \
+  --exclude=elm-stuff \
+  --exclude=bburago \
+  --exclude=ermes \
+  --exclude=ex_socket \
+  --exclude=fidaty \
+  --exclude=hal9000 \
+  --exclude=node \
+  --exclude=urania \
+  --exclude=bundle.js \
+  --exclude=gulpfile.js \
+  --exclude=webpack.config.js \
+  --exclude=*.json \
+  .

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -x
+
+ctags -R \
+  --exclude=_build \
+  --exclude=.git \
+  --exclude=priv \
+  --exclude=node_modules \
+  .

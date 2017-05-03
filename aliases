@@ -1,0 +1,32 @@
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+
+# IP addresses
+alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias ips="sudo ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# vhosts
+alias hosts='sudo vim /etc/hosts'
+
+# copy working directory
+alias cwd='pwd | tr -d "\r\n" | xclip -selection clipboard'
+
+# untar
+alias untar='tar xvf'
+
+# Pipe my public key to my clipboard.
+alias pubkey="more ~/.ssh/id_rsa.pub | xclip -selection clipboard | echo '=> Public key copied to pasteboard.'"
+
+# Pipe my private key to my clipboard.
+alias prikey="more ~/.ssh/id_rsa | xclip -selection clipboard | echo '=> Private key copied to pasteboard.'"
+
+alias doc="docker-compose"
+
+alias prima-ip-worker-production="aws ec2 describe-instances --filters Name=tag:Name,Values=ecs-workers-production --output text |grep PRIVATEIPADDRESSES |awk '
+{print \$4}'"
+
+alias prima-ip-worker-staging="aws ec2 describe-instances --filters Name=tag:Name,Values=ecs-allinone-staging --output text |grep PRIVATEIPADDRESSES |awk '{prin
+t \$4}'"
+
+alias fuck='sudo $(fc -ln -1)'
