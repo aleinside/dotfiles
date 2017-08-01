@@ -211,7 +211,28 @@ Commands | Descriptions
 
 ## Alchemist
 
-TODO ...
+`<C-]>` → Jump to the definition, while cursor is under the keyword in NORMAL mode
+
+`<C-T>` → Jump through tag stack, jump between tag stack in NORMAL mode.
+
+
+### ExDoc
+
+`ExDoc [module/function]` → provides document (press TAB to get autocomplete)
+
+### ExDef
+
+`ExDef [module/function]` → jumps to the definition.
+
+### IEx
+
+`IEx [command]` → opens a new IEx session if none exists (iex -S mix). If one already exists, it switches to that window (or reopens the window if it was closed). can take a command, which it will run. For example: :IEx h Enum.reverse
+
+`IExHide` → hides the window that the IEx session is in
+
+### Mix
+
+`Mix [command]` → run mix command (press `TAB` to get commands autocomplete)
 
 # TMUX
 
