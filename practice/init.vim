@@ -47,12 +47,32 @@ Plug 'scrooloose/syntastic'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
+
+Plug 'slashmili/alchemist.vim'
+let g:alchemist_tag_disable = 1
+
+Plug 'powerman/vim-plugin-AnsiEsc'
+
+Plug 'ludovicchabant/vim-gutentags'
+let g:gutentags_cache_dir = '~/.tags_cache'
+
+Plug 'neomake/neomake'
+autocmd! BufWritePost * Neomake
+
+Plug 'c-brenn/phoenix.vim'
+Plug 'tpope/vim-projectionist'
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 else
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
 endif
+
 let g:make = 'gmake'
 if exists('make')
         let g:make = 'make'
