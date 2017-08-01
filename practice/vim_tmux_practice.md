@@ -258,3 +258,7 @@ TODO ...
 `C-b C-<arrow key>` → resize pane in direction of <arrow key>
 
 `C-b ,` → rename the current window
+
+### Scroll
+
+`C-b [` → you can use your normal navigation keys to scroll around
