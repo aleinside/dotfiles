@@ -11,5 +11,16 @@ ssh-keygen -t rsa -b 4096 -C "aleinside@gmail.com" -P "" -f $HOME/.ssh/id_rsa -q
 
 # dotfiles
 # htop, jq, tree, openvpn, zsh
-# asdf: ruby, elixir - (elm-format)
+# asdf: ruby - (elm-format)
+# elixir, erlang, python
+# pip3 install neovim
 # fuzzy-finder
+
+# brew install git ctags
+# sudo apt-get install git exuberant-ctags ncurses-term curl
+
+# pip install flake8 jedi
+# pip2 install --user --upgrade neovim
+# pip3 install --user --upgrade neovim
+# npm install -g elm-format@exp
+
