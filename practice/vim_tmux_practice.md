@@ -236,13 +236,17 @@ Commands | Descriptions
 
 # TMUX
 
+Custom configuration: `C-b` → `C-a`
+
+`M` → Meta (Alt)
+
 ### Panes
 
-`C-b %` → split vertical
+`C-b -` → split vertical (orig %)
 
-`C-b "` → split horizontal
+`C-b |` → split horizontal (orig ")
 
-`C-b <arrow key>` → navigating panes
+`M <arrow key>` → navigating panes (orig `C-b <arrow key>`)
 
 `Ctrl-d` → (or type `exit`) close pane
 
@@ -279,6 +283,8 @@ Commands | Descriptions
 `C-b C-<arrow key>` → resize pane in direction of <arrow key>
 
 `C-b ,` → rename the current window
+
+`C-b r` → reload config file (orig `C-b :source-file ~/.tmux.conf`)
 
 ### Scroll
 
