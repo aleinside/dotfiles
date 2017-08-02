@@ -69,7 +69,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 
-Plugin 'infoslack/vim-docker'
+Plug 'infoslack/vim-docker'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
