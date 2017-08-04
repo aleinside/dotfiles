@@ -1,0 +1,14 @@
+--R
+--languages=php
+--php-kinds=cif
+--regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
+--exclude=app/*
+--exclude=bin/*
+--exclude=web/*
+--exclude=tests/*
+--exclude=var/*
+--exclude=*/Test/*
+--exclude=*/Tests/*
+--exclude=*test*
+--exclude=vendor/*/vendor
+--fields=+aimS
