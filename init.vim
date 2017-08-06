@@ -56,6 +56,7 @@ Plug 'neomake/neomake'
 Plug 'tpope/vim-projectionist'
 "Dark powered neo-completion"
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'lifepillar/vim-cheat40'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
