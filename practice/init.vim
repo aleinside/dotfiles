@@ -48,20 +48,14 @@ Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
 Plug 'godlygeek/tabular'
-
 " better doc
 Plug 'powerman/vim-plugin-AnsiEsc'
-
 Plug 'ludovicchabant/vim-gutentags'
-
+" Asynchronous linting and make
 Plug 'neomake/neomake'
-autocmd! BufWritePost * Neomake
-
 Plug 'tpope/vim-projectionist'
-
-" Use deoplete.
+"Dark powered neo-completion"
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -513,6 +507,12 @@ augroup END
 
 " gutentags
 let g:gutentags_cache_dir = '~/.tags_cache'
+
+" neomake
+autocmd! BufWritePost * Neomake
+
+" deoplete
+let g:deoplete#enable_at_startup = 1
 
 "*****************************************************************************
 "*****************************************************************************
