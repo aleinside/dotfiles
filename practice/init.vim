@@ -47,29 +47,21 @@ Plug 'scrooloose/syntastic'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
-
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
 
-Plug 'slashmili/alchemist.vim'
-let g:alchemist_tag_disable = 1
-
+" better doc
 Plug 'powerman/vim-plugin-AnsiEsc'
 
 Plug 'ludovicchabant/vim-gutentags'
-let g:gutentags_cache_dir = '~/.tags_cache'
 
 Plug 'neomake/neomake'
 autocmd! BufWritePost * Neomake
 
-Plug 'c-brenn/phoenix.vim'
 Plug 'tpope/vim-projectionist'
 
 " Use deoplete.
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
-
-Plug 'infoslack/vim-docker'
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -106,15 +98,19 @@ Plug 'tomasr/molokai'
 "" Custom bundles
 "*****************************************************************************
 
+" markdown
+Plug 'plasticboy/vim-markdown'
+
 " elixir
 Plug 'elixir-lang/vim-elixir'
 Plug 'carlosgaldino/elixir-snippets'
-
+Plug 'slashmili/alchemist.vim'
+Plug 'mmorearty/elixir-ctags'
+Plug 'c-brenn/phoenix.vim'
 
 " elm
 "" Elm Bundle
 Plug 'elmcast/elm-vim'
-
 
 " html
 "" HTML Bundle
@@ -123,16 +119,19 @@ Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
 Plug 'mattn/emmet-vim'
 
-
 " javascript
 "" Javascript Bundle
 Plug 'jelera/vim-javascript-syntax'
 
-
 " php
 "" PHP Bundle
 Plug 'arnaud-lb/vim-php-namespace'
+Plug 'stanangeloff/php.vim'
+"" Symfony
+Plug 'docteurklein/vim-symfony'
 
+" docker
+Plug 'infoslack/vim-docker'
 
 "*****************************************************************************
 "*****************************************************************************
@@ -147,7 +146,6 @@ call plug#end()
 " Required:
 filetype plugin indent on
 
-
 "*****************************************************************************
 "" Basic Setup
 "*****************************************************************************"
@@ -157,7 +155,6 @@ set fileencoding=utf-8
 set fileencodings=utf-8
 set bomb
 set binary
-
 
 "" Fix backspace indent
 set backspace=indent,eol,start
@@ -228,11 +225,7 @@ else
   let g:indentLine_concealcursor = 0
   let g:indentLine_char = '┆'
   let g:indentLine_faster = 1
-
-
 endif
-
-
 
 "" Disable the blinking cursor.
 set gcr=a:blinkon0
@@ -487,7 +480,8 @@ nnoremap <Leader>o :.Gbrowse<CR>
 "*****************************************************************************
 
 " elixir
-
+" alchemist
+let g:alchemist_tag_disable = 1
 
 " elm
 " elm-vim
@@ -502,11 +496,9 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:elm_syntastic_show_warnings = 1
 
-
 " html
 " for html files, 2 spaces
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
-
 
 " javascript
 let g:javascript_enable_domhtmlcss = 1
@@ -517,9 +509,10 @@ augroup vimrc-javascript
   autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4
 augroup END
 
-
 " php
 
+" gutentags
+let g:gutentags_cache_dir = '~/.tags_cache'
 
 "*****************************************************************************
 "*****************************************************************************
