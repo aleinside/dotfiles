@@ -9,7 +9,7 @@ endif
 
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
-let g:vim_bootstrap_langs = "elixir,elm,html,javascript,php"
+let g:vim_bootstrap_langs = "elixir,elm,html,javascript,php,python"
 let g:vim_bootstrap_editor = "nvim"				" nvim or vim
 
 if !filereadable(vimplug_exists)
@@ -47,27 +47,15 @@ Plug 'scrooloose/syntastic'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
-Plug 'godlygeek/tabular'
-" better doc
-Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'ludovicchabant/vim-gutentags'
-" Asynchronous linting and make
-Plug 'neomake/neomake'
-Plug 'tpope/vim-projectionist'
-"Dark powered neo-completion"
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'lifepillar/vim-cheat40'
-
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 else
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
   Plug 'junegunn/fzf.vim'
 endif
-
 let g:make = 'gmake'
 if exists('make')
-  let g:make = 'make'
+        let g:make = 'make'
 endif
 Plug 'Shougo/vimproc.vim', {'do': g:make}
 
@@ -93,19 +81,15 @@ Plug 'tomasr/molokai'
 "" Custom bundles
 "*****************************************************************************
 
-" markdown
-Plug 'plasticboy/vim-markdown'
-
 " elixir
 Plug 'elixir-lang/vim-elixir'
 Plug 'carlosgaldino/elixir-snippets'
-Plug 'slashmili/alchemist.vim'
-Plug 'mmorearty/elixir-ctags'
-Plug 'c-brenn/phoenix.vim'
+
 
 " elm
 "" Elm Bundle
 Plug 'elmcast/elm-vim'
+
 
 " html
 "" HTML Bundle
@@ -114,19 +98,22 @@ Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
 Plug 'mattn/emmet-vim'
 
+
 " javascript
 "" Javascript Bundle
 Plug 'jelera/vim-javascript-syntax'
 
+
 " php
 "" PHP Bundle
 Plug 'arnaud-lb/vim-php-namespace'
-Plug 'stanangeloff/php.vim'
-"" Symfony
-Plug 'docteurklein/vim-symfony'
 
-" docker
-Plug 'infoslack/vim-docker'
+
+" python
+"" Python Bundle
+Plug 'davidhalter/jedi-vim'
+Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
+
 
 "*****************************************************************************
 "*****************************************************************************
@@ -141,6 +128,7 @@ call plug#end()
 " Required:
 filetype plugin indent on
 
+
 "*****************************************************************************
 "" Basic Setup
 "*****************************************************************************"
@@ -150,6 +138,7 @@ set fileencoding=utf-8
 set fileencodings=utf-8
 set bomb
 set binary
+
 
 "" Fix backspace indent
 set backspace=indent,eol,start
@@ -220,7 +209,11 @@ else
   let g:indentLine_concealcursor = 0
   let g:indentLine_char = '┆'
   let g:indentLine_faster = 1
+
+  
 endif
+
+
 
 "" Disable the blinking cursor.
 set gcr=a:blinkon0
@@ -475,8 +468,7 @@ nnoremap <Leader>o :.Gbrowse<CR>
 "*****************************************************************************
 
 " elixir
-" alchemist
-let g:alchemist_tag_disable = 1
+
 
 " elm
 " elm-vim
@@ -491,9 +483,11 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:elm_syntastic_show_warnings = 1
 
+
 " html
 " for html files, 2 spaces
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
+
 
 " javascript
 let g:javascript_enable_domhtmlcss = 1
@@ -504,16 +498,41 @@ augroup vimrc-javascript
   autocmd FileType javascript set tabstop=4|set shiftwidth=4|set expandtab softtabstop=4
 augroup END
 
+
 " php
 
-" gutentags
-let g:gutentags_cache_dir = '~/.tags_cache'
 
-" neomake
-autocmd! BufWritePost * Neomake
+" python
+" vim-python
+augroup vimrc-python
+  autocmd!
+  autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8 colorcolumn=79
+      \ formatoptions+=croq softtabstop=4
+      \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+augroup END
 
-" deoplete
-let g:deoplete#enable_at_startup = 1
+" jedi-vim
+let g:jedi#popup_on_dot = 0
+let g:jedi#goto_assignments_command = "<leader>g"
+let g:jedi#goto_definitions_command = "<leader>d"
+let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<leader>n"
+let g:jedi#rename_command = "<leader>r"
+let g:jedi#show_call_signatures = "0"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#smart_auto_mappings = 0
+
+" syntastic
+let g:syntastic_python_checkers=['python', 'flake8']
+
+" vim-airline
+let g:airline#extensions#virtualenv#enabled = 1
+
+" Syntax highlight
+" Default highlight is better than polyglot
+let g:polyglot_disabled = ['python']
+let python_highlight_all = 1
+
 
 "*****************************************************************************
 "*****************************************************************************
