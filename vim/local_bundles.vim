@@ -25,12 +25,13 @@ Plug 'jtratner/vim-flavored-markdown'
 
 " elixir
 Plug 'slashmili/alchemist.vim'
-Plug 'mmorearty/elixir-ctags'
+"Plug 'mmorearty/elixir-ctags'
 Plug 'c-brenn/phoenix.vim'
 
 " php
 Plug 'stanangeloff/php.vim'
 Plug 'lvht/phpcd.vim'
+Plug 'vim-php/tagbar-phpctags.vim'
 "" symfony
 Plug 'docteurklein/vim-symfony'
 
@@ -43,3 +44,7 @@ Plug 'infoslack/vim-docker'
 " search TODO, FIXME
 Plug 'gilsondev/searchtasks.vim'
 
+" tmux integration
+Plug 'benmills/vimux'
+"" vimux mix
+Plug 'spiegela/vimix'

@@ -10,4 +10,4 @@ echo "Copy local_bundles"
 cp local_bundles.vim ~/.config/nvim
 
 echo "Install plugins"
-vim +PlugInstall +qall
+echo "vim +PlugInstall +qall"
