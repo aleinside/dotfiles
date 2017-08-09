@@ -31,7 +31,6 @@ Plug 'c-brenn/phoenix.vim'
 " php
 Plug 'stanangeloff/php.vim'
 Plug 'lvht/phpcd.vim'
-Plug 'vim-php/tagbar-phpctags.vim'
 "" symfony
 Plug 'docteurklein/vim-symfony'
 
