@@ -1,7 +1,6 @@
 " nerd font
-" set encoding=utf8
-" set guifont=Droid\ Sans\ Mono\ Nerd\ Font\ Complete\ 11
-" let g:airline_powerline_fonts = 1
+set encoding=utf8
+let g:airline_powerline_fonts = 1
 
 " alchemist
 let g:alchemist_tag_disable = 1
@@ -22,10 +21,6 @@ let g:deoplete#ignore_sources.php = ['omni']
 
 " searchtask
 let g:searchtasks_list=["TODO", "FIXME", "XXX"]
-
-" vimux vimix
-" let g:vimix_map_keys = 1
-" let g:vimix_mix_command = "docker-compose run web iex -S mix"
 
 " tagbar
 "" elixir
