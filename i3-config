@@ -173,6 +173,12 @@ bar {
 # lock screen
 bindsym $mod+l exec i3lock -c 111111
 
+# audio controls
+bindsym Scroll_Lock exec amixer set Master 5+ #increase sound volume
+bindsym Print exec amixer set Master 5- #decrease sound volume
+bindsym Pause exec amixer set Master 1+ toggle # mute sound (BUG: unmute also Headphone and Speaker)
+#bindsym XF86AudioMicMute exec amixer set Capture toggle # mute mic
+
 # auto run commands
 # set background
 # use the same background as slim (login manager)
