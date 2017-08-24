@@ -22,6 +22,9 @@ let g:deoplete#ignore_sources.php = ['omni']
 " searchtask
 let g:searchtasks_list=["TODO", "FIXME", "XXX"]
 
+" NERDTree
+let NERDTreeShowHidden=1
+
 " tagbar
 "" elixir
 let g:tagbar_type_elixir = {
