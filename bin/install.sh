@@ -1,6 +1,6 @@
 #!/bin/bash
-
-set -e
+set -euo pipefail
+IFS=$'\n\t'
 
 # avoid interactive installation
 export DEBIAN_FRONTEND=noninteractive
@@ -174,5 +174,5 @@ install_dotfiles
 echo "Genero ssh"
 generate_ssh
 
-echo "Install vnc server"
-install_vnc_server
+#echo "Install vnc server"
+#install_vnc_server
