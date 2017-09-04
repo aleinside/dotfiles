@@ -23,10 +23,8 @@ alias prikey="more ~/.ssh/id_rsa | xclip -selection clipboard | echo '=> Private
 
 alias doc="docker-compose"
 
-alias prima-ip-worker-production="aws ec2 describe-instances --filters Name=tag:Name,Values=ecs-workers-production --output text |grep PRIVATEIPADDRESSES |awk '
-{print \$4}'"
+alias prima-ip-worker-production="aws ec2 describe-instances --filters Name=tag:Name,Values=ecs-workers-production --output text |grep PRIVATEIPADDRESSES |awk '{print \$4}'"
 
-alias prima-ip-worker-staging="aws ec2 describe-instances --filters Name=tag:Name,Values=ecs-allinone-staging --output text |grep PRIVATEIPADDRESSES |awk '{prin
-t \$4}'"
+alias prima-ip-worker-staging="aws ec2 describe-instances --filters Name=tag:Name,Values=ecs-allinone-staging --output text |grep PRIVATEIPADDRESSES |awk '{print \$4}'"
 
 alias fuck='sudo $(fc -ln -1)'
