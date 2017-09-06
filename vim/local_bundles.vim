@@ -32,6 +32,12 @@ Plug 'stanangeloff/php.vim'
 Plug 'lvht/phpcd.vim'
 "" symfony
 Plug 'docteurklein/vim-symfony'
+" PHPcomplete
+Plug 'm2mdas/phpcomplete-extended'
+" PHPcomplete symfony
+Plug 'm2mdas/phpcomplete-extended-symfony'
+" PHP namespace
+Plug 'arnaud-lb/vim-php-namespace'
 
 " docker
 Plug 'infoslack/vim-docker'
@@ -46,10 +52,10 @@ Plug 'gilsondev/searchtasks.vim'
 Plug 'shougo/denite.nvim'
 
 " interactive command execution
-Plug 'shougo/denite.nvim'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
-" PHPcomplete
-Plug 'm2mdas/phpcomplete-extended'
+" Search context in Vim in a sidebar using `ag` output
+Plug 'ddrscott/vim-side-search'
 
-" PHPcomplete symfony
-Plug 'm2mdas/phpcomplete-extended-symfony'
+" Supertab
+Plug 'ervandew/supertab'
