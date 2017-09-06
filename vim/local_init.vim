@@ -65,7 +65,7 @@ let g:side_search_splitter = 'vnew'
 " I like 40% splits, change it if you don't
 let g:side_search_split_pct = 0.4
 " SideSearch current word and return to original window
-nnoremap <Leader>ss :SideSearch <C-r><C-w><CR> | wincmd p
+nnoremap <Leader>qq :SideSearch <C-r><C-w><CR> | wincmd p
 " Create an shorter `SS` command
 command! -complete=file -nargs=+ SS execute 'SideSearch <args>'
 " or command abbreviation
@@ -75,12 +75,16 @@ function! IPhpInsertUse()
     call PhpInsertUse()
     call feedkeys('a',  'n')
 endfunction
-autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
-autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
+autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()
+autocmd FileType php noremap <Leader>u :call PhpInsertUse()
 
 function! IPhpExpandClass()
     call PhpExpandClass()
     call feedkeys('a', 'n')
 endfunction
-autocmd FileType php inoremap <Leader>i <Esc>:call IPhpExpandClass()<CR>
-autocmd FileType php noremap <Leader>i :call PhpExpandClass()<CR>
+autocmd FileType php inoremap <Leader>i <Esc>:call IPhpExpandClass()
+autocmd FileType php noremap <Leader>i :call PhpExpandClass()
+
+let g:pdv_template_dir = $HOME ."/.config/nvim/plugged/pdv/templates_snip"
+nnoremap <Leader>** :call pdv#DocumentWithSnip()
+

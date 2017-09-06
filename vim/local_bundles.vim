@@ -38,6 +38,11 @@ Plug 'm2mdas/phpcomplete-extended'
 Plug 'm2mdas/phpcomplete-extended-symfony'
 " PHP namespace
 Plug 'arnaud-lb/vim-php-namespace'
+" PHP documentator
+Plug 'tobys/pdv'
+
+" Mustache template system (per pdv)
+Plug 'tobys/vmustache'
 
 " docker
 Plug 'infoslack/vim-docker'
