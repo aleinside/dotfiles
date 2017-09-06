@@ -41,3 +41,15 @@ Plug 'ryanoasis/vim-devicons'
 
 " search TODO, FIXME
 Plug 'gilsondev/searchtasks.vim'
+
+" dark powered plugin for Neovim/Vim to unite all interfaces
+Plug 'shougo/denite.nvim'
+
+" interactive command execution
+Plug 'shougo/denite.nvim'
+
+" PHPcomplete
+Plug 'm2mdas/phpcomplete-extended'
+
+" PHPcomplete symfony
+Plug 'm2mdas/phpcomplete-extended-symfony'
