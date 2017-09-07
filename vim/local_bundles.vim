@@ -70,3 +70,6 @@ Plug 'mbbill/undotree'
 
 " hacker news
 Plug 'ryanss/vim-hackernews'
+
+" twig
+Plug 'evidens/vim-twig'
