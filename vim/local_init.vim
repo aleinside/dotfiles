@@ -75,3 +75,7 @@ nnoremap <Leader>** :call pdv#DocumentWithSnip()
 
 " undotree
 nnoremap <F5> :UndotreeToggle
+if has("persistent_undo")
+    set undodir=~/.undodir/
+    set undofile
+endif
