@@ -54,23 +54,7 @@ let g:tagbar_type_markdown = {
     \ ]
     \ }
 
-" vim side search
-" How should we execute the search?
-" --heading and --stats are required!
-let g:side_search_prg = 'ag --word-regexp'
-  \. " --ignore='*.js.map'"
-  \. " --heading --stats -B 1 -A 4"
-" Can use `vnew` or `new`
-let g:side_search_splitter = 'vnew'
-" I like 40% splits, change it if you don't
-let g:side_search_split_pct = 0.4
-" SideSearch current word and return to original window
-nnoremap <Leader>qq :SideSearch <C-r><C-w><CR> | wincmd p
-" Create an shorter `SS` command
-command! -complete=file -nargs=+ SS execute 'SideSearch <args>'
-" or command abbreviation
-cabbrev SS SideSearch
-
+" PHP Namespace
 function! IPhpInsertUse()
     call PhpInsertUse()
     call feedkeys('a',  'n')
@@ -85,6 +69,9 @@ endfunction
 autocmd FileType php inoremap <Leader>i <Esc>:call IPhpExpandClass()
 autocmd FileType php noremap <Leader>i :call PhpExpandClass()
 
+" PHP documentator
 let g:pdv_template_dir = $HOME ."/.config/nvim/plugged/pdv/templates_snip"
 nnoremap <Leader>** :call pdv#DocumentWithSnip()
 
+" undotree
+nnoremap <F5> :UndotreeToggle

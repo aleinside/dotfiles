@@ -47,7 +47,7 @@ Plug 'tobys/vmustache'
 " docker
 Plug 'infoslack/vim-docker'
 
-" icons for NerdTREE
+" icons for NERDTree
 Plug 'ryanoasis/vim-devicons'
 
 " search TODO, FIXME
@@ -59,8 +59,11 @@ Plug 'shougo/denite.nvim'
 " interactive command execution
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
-" Search context in Vim in a sidebar using `ag` output
-Plug 'ddrscott/vim-side-search'
-
 " Supertab
 Plug 'ervandew/supertab'
+
+" NERD commenter
+Plug 'scrooloose/nerdcommenter'
+
+" undo history visualizer
+Plug 'mbbill/undotree'
