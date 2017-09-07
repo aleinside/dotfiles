@@ -67,3 +67,6 @@ Plug 'scrooloose/nerdcommenter'
 
 " undo history visualizer
 Plug 'mbbill/undotree'
+
+" hacker news
+Plug 'ryanss/vim-hackernews'
