@@ -73,3 +73,6 @@ Plug 'ryanss/vim-hackernews'
 
 " twig
 Plug 'evidens/vim-twig'
+
+" github for fugitive
+Plug 'tpope/vim-rhubarb'
