@@ -79,3 +79,18 @@ if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
+
+" vim test
+nmap <silent> <leader>t :TestNearest
+nmap <silent> <leader>T :TestFile
+nmap <silent> <leader>a :TestSuite
+nmap <silent> <leader>l :TestLast
+nmap <silent> <leader>g :TestVisit
+" neovim -> neovim terminal (new window)
+" dispatch or dispatch_background
+" vimshell
+let test#strategy = "neovim"
+let test#elixir#exunit#executable = 'docker-compose run web mix test'
+
+" Esc to exit from :terminal
+nnoremap <Esc> <C-\><C-n>

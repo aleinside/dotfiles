@@ -76,3 +76,9 @@ Plug 'evidens/vim-twig'
 
 " github for fugitive
 Plug 'tpope/vim-rhubarb'
+
+" vim test
+Plug 'janko-m/vim-test'
+
+" async build and test dispatcher
+Plug 'tpope/vim-dispatch'
