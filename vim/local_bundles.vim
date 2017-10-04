@@ -82,3 +82,6 @@ Plug 'janko-m/vim-test'
 
 " async build and test dispatcher
 Plug 'tpope/vim-dispatch'
+
+" rename file
+Plug 'danro/rename.vim'
