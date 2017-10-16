@@ -83,5 +83,23 @@ Plug 'janko-m/vim-test'
 " async build and test dispatcher
 Plug 'tpope/vim-dispatch'
 
-" rename file
-Plug 'danro/rename.vim'
+" Vim sugar for the UNIX shell commands that need it the most
+Plug 'tpope/vim-eunuch'
+
+" bookmarks
+Plug 'MattesGroeger/vim-bookmarks'
+
+" distraction free writing
+Plug 'junegunn/goyo.vim'
+
+" hyperfocus-writing
+Plug 'junegunn/limelight.vim'
+
+" physics-based smooth scrolling
+Plug 'yuttie/comfortable-motion.vim'
+
+" start screen
+Plug 'mhinz/vim-startify'
+
+" sayonara!
+Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }

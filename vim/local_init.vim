@@ -94,3 +94,16 @@ let test#elixir#exunit#executable = 'docker-compose run web mix test'
 
 " Esc to exit from :terminal
 nnoremap <Esc> <C-\><C-n>
+
+" Limelight Goyo integration
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
+" Goyo default
+let g:goyo_width = 120
+
+" Startify configuration
+let g:startify_change_to_dir          = 0
+let g:startify_change_to_vcs_root     = 0
+let g:startify_session_persistence = 0
+
