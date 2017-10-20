@@ -62,13 +62,6 @@ endfunction
 autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()
 autocmd FileType php noremap <Leader>u :call PhpInsertUse()
 
-function! IPhpExpandClass()
-    call PhpExpandClass()
-    call feedkeys('a', 'n')
-endfunction
-autocmd FileType php inoremap <Leader>i <Esc>:call IPhpExpandClass()
-autocmd FileType php noremap <Leader>i :call PhpExpandClass()
-
 " PHP documentator
 let g:pdv_template_dir = $HOME ."/.config/nvim/plugged/pdv/templates_snip"
 nnoremap <Leader>** :call pdv#DocumentWithSnip()
@@ -107,4 +100,15 @@ let g:startify_change_to_dir          = 0
 let g:startify_change_to_vcs_root     = 0
 let g:startify_session_persistence    = 0
 
-noremap <leader>c :Sayonara
+noremap <leader>c :Sayonara<CR>
+
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
+" Prompt for a command to run
+"map <Leader>vp :VimuxPromptCommand<CR>
+
+" Zoom the tmux runner pane
+"map <Leader>vz :VimuxZoomRunner<CR>

@@ -103,3 +103,7 @@ Plug 'mhinz/vim-startify'
 
 " sayonara!
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
+
+" tmux
+"Plug 'christoomey/vim-tmux-navigator'
+"Plug 'benmills/vimux'
