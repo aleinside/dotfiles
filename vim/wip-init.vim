@@ -7,6 +7,9 @@ if &compatible
   set nocompatible
 endif
 
+" install minpac
+" git clone https://github.com/k-takata/minpac.git ~/.config/nvim/pack/minpac/opt/minpac
+
 if exists('*minpac#init')
   " minpac is loaded
   call minpac#init()
@@ -20,6 +23,8 @@ if exists('*minpac#init')
   call minpac#add('tpope/vim-vinegar')
   " git wrapper
   call minpac#add('tpope/vim-fugitive')
+  " git diff
+  call minpac#add('jreybert/vimagit')
   " status tabline
   call minpac#add('vim-airline/vim-airline')
   " status tabline themes
@@ -149,6 +154,8 @@ if exists('*minpac#init')
   " physics-based smooth scrolling
   call minpac#add('yuttie/comfortable-motion.vim')
 
+  " unload, delete or wipe a buffer without closing the window or split
+  call minpac#add('qpkorr/vim-bufkill')
 endif
 
 
@@ -215,8 +222,7 @@ set number
 
 let no_buffers_menu=1
 
-set background=dark
-colorscheme solarized
+colorscheme molokai
 
 set mousemodel=popup
 set t_Co=256
@@ -472,10 +478,7 @@ let g:alchemist_tag_disable = 1
 
 " gutentags
 let g:gutentags_cache_dir = '~/.tags_cache'
-
-" neomake
-"autocmd! BufWritePost * Neomake
-"let g:neomake_elixir_enabled_makers = ['mix', 'credo', 'dogma']
+let g:gutentags_ctags_exclude = ['cache/*', 'logs/*']
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
@@ -483,9 +486,6 @@ let g:deoplete#enable_at_startup = 1
 " phpcd
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = ['omni']
-
-" searchtask
-let g:searchtasks_list=["TODO", "FIXME", "XXX"]
 
 " NERDTree
 let NERDTreeShowHidden=1
