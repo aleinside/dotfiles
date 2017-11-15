@@ -54,6 +54,9 @@ if exists('*minpac#init')
   call minpac#add('xolox/vim-misc')
   call minpac#add('xolox/vim-session')
 
+  " async lint engine
+  call minpac#add('w0rp/ale')
+
   "" Snippets
   "Plug 'SirVer/ultisnips'
   "Plug 'honza/vim-snippets'
@@ -544,6 +547,13 @@ autocmd! User GoyoLeave Limelight!
 
 " Goyo default
 let g:goyo_width = 120
+
+" ALE Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
+
+" ALE quickfix instead of loclist
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
 
 " Define user commands for updating/cleaning the plugins.
 " Each of them loads minpac, reloads .vimrc to register the
