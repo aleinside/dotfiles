@@ -19,8 +19,6 @@ if exists('*minpac#init')
   call minpac#add('vim-jp/syntax-vim-ex')
   " comment stuff out
   call minpac#add('tpope/vim-commentary')
-  " netrw enhances
-  call minpac#add('tpope/vim-vinegar')
   " git wrapper
   call minpac#add('tpope/vim-fugitive')
   " git diff
@@ -156,6 +154,13 @@ if exists('*minpac#init')
 
   " unload, delete or wipe a buffer without closing the window or split
   call minpac#add('qpkorr/vim-bufkill')
+
+  " nerdtree
+  call minpac#add('scrooloose/nerdtree')
+  call minpac#add('jistr/vim-nerdtree-tabs')
+
+  " icons for NERDTree
+  call minpac#add('ryanoasis/vim-devicons')
 endif
 
 
@@ -487,7 +492,17 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 let g:deoplete#ignore_sources.php = ['omni']
 
-" NERDTree
+"" NERDTree configuration
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 50
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+nnoremap <silent> <F2> :NERDTreeFind<CR>
+noremap <F3> :NERDTreeToggle<CR>
 let NERDTreeShowHidden=1
 
 " tagbar
