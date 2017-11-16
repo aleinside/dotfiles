@@ -335,6 +335,8 @@ augroup vimrc-make-cmake
   autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
 augroup END
 
+autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+
 set autoread
 
 "*****************************************************************************
@@ -533,6 +535,9 @@ let g:tagbar_type_markdown = {
         \ 'k:Heading_L3'
     \ ]
     \ }
+
+" PHPComplete extended composer path
+let g:phpcomplete_index_composer_command = 'composer'
 
 " PHP Namespace
 function! IPhpInsertUse()
