@@ -20,3 +20,4 @@ twig.yml
 vendor/
 .vim-bookmarks
 yarn-error.log
+Session.vim

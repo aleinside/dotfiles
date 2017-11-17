@@ -53,10 +53,6 @@ if exists('*minpac#init')
   endif
   call minpac#add('Shougo/vimproc.vim', {'do': g:make})
 
-  "" Vim-Session
-  call minpac#add('xolox/vim-misc')
-  call minpac#add('xolox/vim-session')
-
   " async lint engine
   call minpac#add('w0rp/ale')
 
@@ -114,14 +110,18 @@ if exists('*minpac#init')
   call minpac#add('lvht/phpcd.vim')
   "" symfony
   call minpac#add('docteurklein/vim-symfony')
+  " PHP autocomplete
+  call minpac#add('shawncplus/phpcomplete.vim')
   " PHPcomplete
-  call minpac#add('m2mdas/phpcomplete-extended')
+  "call minpac#add('m2mdas/phpcomplete-extended')
   " PHPcomplete symfony
-  call minpac#add('m2mdas/phpcomplete-extended-symfony')
+  "call minpac#add('m2mdas/phpcomplete-extended-symfony')
   " PHP namespace
   call minpac#add('arnaud-lb/vim-php-namespace')
   " PHP documentator
   call minpac#add('tobys/pdv')
+  " PHP vim syntax
+  call minpac#add('StanAngeloff/php.vim')
   " twig
   call minpac#add('evidens/vim-twig')
 
@@ -161,6 +161,9 @@ if exists('*minpac#init')
 
   " icons for NERDTree
   call minpac#add('ryanoasis/vim-devicons')
+
+  " session
+  call minpac#add('tpope/vim-obsession')
 endif
 
 
@@ -212,18 +215,13 @@ else
   set shell=/bin/sh
 endif
 
-" session management
-let g:session_directory = "~/.config/nvim/session"
-let g:session_autoload = "no"
-let g:session_autosave = "no"
-let g:session_command_aliases = 1
-
 "*****************************************************************************
 "" Visual Settings
 "*****************************************************************************
 syntax on
 set ruler
 set number
+set colorcolumn=80
 
 let no_buffers_menu=1
 
@@ -356,12 +354,6 @@ noremap <Leader>gs :Gstatus<CR>
 noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gvdiff<CR>
 noremap <Leader>gr :Gremove<CR>
-
-" session management
-nnoremap <leader>so :OpenSession<Space>
-nnoremap <leader>ss :SaveSession<Space>
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
 
 "" Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
