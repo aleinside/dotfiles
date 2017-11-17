@@ -221,7 +221,7 @@ endif
 syntax on
 set ruler
 set number
-set colorcolumn=80
+set colorcolumn=120
 
 let no_buffers_menu=1
 
