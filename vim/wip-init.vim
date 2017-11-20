@@ -564,8 +564,8 @@ let g:goyo_width = 120
 let g:airline#extensions#ale#enabled = 1
 
 " ALE quickfix instead of loclist
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 1
 
 " Define user commands for updating/cleaning the plugins.
 " Each of them loads minpac, reloads .vimrc to register the
