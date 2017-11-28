@@ -202,9 +202,9 @@ bindsym $mod+F7 exec --no-startup-id spotify
 #bindsym $mod+Print exec "scrot -ue 'mv $f ~/Screenshots'"
 #bindsym $mod+Shift+0 exit
 
-assign [class="google-chrome"] 1
-assign [class="gnome-terminal-server"] 2
-assign [class="slack"] 3
-assign [class="skype"] 4
-assign [class="spotify"] 5
+assign [class="Google-chrome"] 1
+assign [class="Gnome-terminal"] 2
+assign [class="Slack"] 3
+assign [class="Skype"] 4
+assign [class="Spotify"] 5
 
