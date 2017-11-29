@@ -141,7 +141,7 @@ if exists('*minpac#init')
   call minpac#add('tpope/vim-eunuch')
 
   " bookmarks
-  "call minpac#add('MattesGroeger/vim-bookmarks')
+  call minpac#add('MattesGroeger/vim-bookmarks')
 
   " distraction free writing
   call minpac#add('junegunn/goyo.vim')
