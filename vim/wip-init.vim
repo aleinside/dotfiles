@@ -547,7 +547,7 @@ let g:pdv_template_dir = $HOME ."/.config/nvim/plugged/pdv/templates_snip"
 nnoremap <Leader>** :call pdv#DocumentWithSnip()
 
 " undotree
-nnoremap <F5> :UndotreeToggle
+nnoremap <F5> :UndotreeToggle<CR>
 if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
