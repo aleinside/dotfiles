@@ -21,3 +21,6 @@ vendor/
 .vim-bookmarks
 yarn-error.log
 Session.vim
+Bookmarks.vim
+.tool-versions
+
