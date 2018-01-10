@@ -1,0 +1,11 @@
+datagrip
+docker
+evernote
+font-hack-nerd-font
+google-chrome
+kindle
+nordvpn
+openoffice
+slack
+spotify
+vlc
