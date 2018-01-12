@@ -59,6 +59,9 @@ install_dotfiles() {
 
     echo "Configuro vim"
     cp ${DOTDIR}/vim/wp-init.vim ~/.config/nvim/init.vim
+    
+    echo "Configuro default-gems per asdf"
+    cp ${DOTDIR}/default-gems ~/.default-gems
 }
 
 install_packages() {
@@ -66,6 +69,10 @@ install_packages() {
 }
 
 install languages() {
+    asdf plugin-add ruby
+    asdf install ruby 2.5.0
+    asdf global ruby 2.5.0
+
     asdf plugin-add erlang
     asdf install erlang 20.2.2
     asdf global erlang 20.2.2
@@ -74,12 +81,23 @@ install languages() {
     asdf intsall elixir 1.5.3
     asdf global elixir 1.5.3
 
+    asdf plugin-add elm
+    asdf install elm 0.18.0
+    asdf global elm 0.18.0
+
+    bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+    asdf plugin-add nodejs
+    asdf install nodejs 9.4.0
+    asdf global nodejs 9.4.0
+
     asdf plugin-add python
     asdf install python 3.6.4
     asdf global python 3.6.4
 
     pip install flake8 jedi neovim
     pip install --user --upgrade neovim
+    
+    npm install -g elm-format@exp
 }
 
 install_packages

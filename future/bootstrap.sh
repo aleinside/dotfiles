@@ -7,7 +7,7 @@ echo "export LANGUAGE=en_US.UTF-8" | tee --append $HOME/.bashrc
 echo "export LC_ALL=en_US.UTF-8" | tee --append $HOME/.bashrc
 
 sudo apt-get update
-sudo apt-get install -y ruby-dev bundler awscli libcurl4-openssl-dev cmake pkg-config python
+sudo apt-get install -y awscli libcurl4-openssl-dev cmake pkg-config 
 sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
