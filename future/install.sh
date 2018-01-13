@@ -8,7 +8,7 @@ export DEBIAN_FRONTEND=noninteractive
 install_oh_my_zsh() {
     git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
     cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-    chsh -s /bin/zsh
+    sudo chsh ubuntu -s /bin/zsh
 }
 
 install_fzf() {
@@ -31,7 +31,7 @@ install_universal_ctags() {
 }
 
 install_neovim() {
-    sudo add-apt-repository ppa:neovim-ppa/stable
+    sudo add-apt-repository -y ppa:neovim-ppa/stable
     sudo apt-get update
     sudo apt-get install -y neovim
 }
@@ -43,49 +43,44 @@ install_asdf() {
 }
 
 install_dotfiles() {
-    local DOTDIR="~/Works/dotfiles"
-
+    local DOTDIR=~/Works/dotfiles
     cat ${DOTDIR}/aliases >> ~/.zshrc
-
     cp ${DOTDIR}/tmux.conf ~/.tmux
-
     cp ${DOTDIR}/ctags ~/.ctags
-
     cp ${DOTDIR}/git/gitconfig ~/.gitconfig
     cp ${DOTDIR}/git/gitignore_global ~/.gitignore_global
-
-    cp ${DOTDIR}/vim/wp-init.vim ~/.config/nvim/init.vim
-    
+    mkdir -p ~/.config/nvim
+    cp ${DOTDIR}/vim/wip-init.vim ~/.config/nvim/init.vim
     cp ${DOTDIR}/default-gems ~/.default-gems
 }
 
 install_packages() {
-    sudo apt-get install -y htop zsh tree tig tmux jq silversearcher-ag dh-autoreconf
+    sudo apt-get install -y htop zsh tree tig tmux jq silversearcher-ag dh-autoreconf libncurses5-dev
 }
 
 install_languages() {
-    asdf plugin-add ruby
+    asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
     asdf install ruby 2.5.0
     asdf global ruby 2.5.0
 
-    asdf plugin-add erlang
+    asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
     asdf install erlang 20.2.2
     asdf global erlang 20.2.2
  
-    asdf plugin-add elixir
+    asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
     asdf intsall elixir 1.5.3
     asdf global elixir 1.5.3
 
-    asdf plugin-add elm
+    asdf plugin-add elm https://github.com/vic/asdf-elm.git
     asdf install elm 0.18.0
     asdf global elm 0.18.0
 
     bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
-    asdf plugin-add nodejs
+    asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
     asdf install nodejs 9.4.0
     asdf global nodejs 9.4.0
 
-    asdf plugin-add python
+    asdf plugin-add python https://github.com/tuvistavie/asdf-python.git
     asdf install python 3.6.4
     asdf global python 3.6.4
 
