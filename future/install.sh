@@ -55,7 +55,7 @@ install_dotfiles() {
 }
 
 install_packages() {
-    sudo apt-get install -y htop zsh tree tig tmux jq silversearcher-ag dh-autoreconf libncurses5-dev
+    sudo apt-get install -y htop zsh tree tig tmux jq silversearcher-ag dh-autoreconf libncurses5-dev autoload
 }
 
 install_languages() {
