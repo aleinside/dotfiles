@@ -68,7 +68,7 @@ install_packages() {
     sudo apt-get install -y htop zsh tree tig tmux jq silversearcher-ag
 }
 
-install languages() {
+install_languages() {
     asdf plugin-add ruby
     asdf install ruby 2.5.0
     asdf global ruby 2.5.0
@@ -100,6 +100,12 @@ install languages() {
     npm install -g elm-format@exp
 }
 
+setup() {
+    mkdir ~/Works
+    git clone git@github.com:aleinside/dotfiles.git ~/Works/dotfiles
+}
+
+setup
 install_packages
 install_oh_my_zsh
 install_fzf
