@@ -95,12 +95,8 @@ install_languages() {
     npm install -g elm-format@exp
 }
 
-setup() {
-    mkdir ~/Works
-    git clone git@github.com:aleinside/dotfiles.git ~/Works/dotfiles
-}
+#setup `mkdir ~/Works && git clone git@github.com:aleinside/dotfiles.git ~/Works/dotfiles`
 
-setup
 install_packages
 install_oh_my_zsh
 install_fzf
