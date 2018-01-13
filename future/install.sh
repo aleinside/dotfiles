@@ -6,7 +6,9 @@ IFS=$'\n\t'
 export DEBIAN_FRONTEND=noninteractive
 
 install_oh_my_zsh() {
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+    cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+    chsh -s /bin/zsh
 }
 
 install_fzf() {
@@ -31,7 +33,7 @@ install_universal_ctags() {
 install_neovim() {
     sudo add-apt-repository ppa:neovim-ppa/stable
     sudo apt-get update
-    sudo apt-get install neovim
+    sudo apt-get install -y neovim
 }
 
 install_asdf() {
@@ -42,30 +44,23 @@ install_asdf() {
 
 install_dotfiles() {
     local DOTDIR="~/Works/dotfiles"
-    echo "Clono dotfiles"
 
-    echo "Configuro alias"
     cat ${DOTDIR}/aliases >> ~/.zshrc
 
-    echo "Configuro tmux"
     cp ${DOTDIR}/tmux.conf ~/.tmux
 
-    echo "Configuro ctags"
     cp ${DOTDIR}/ctags ~/.ctags
 
-    echo "Configuro git"
     cp ${DOTDIR}/git/gitconfig ~/.gitconfig
     cp ${DOTDIR}/git/gitignore_global ~/.gitignore_global
 
-    echo "Configuro vim"
     cp ${DOTDIR}/vim/wp-init.vim ~/.config/nvim/init.vim
     
-    echo "Configuro default-gems per asdf"
     cp ${DOTDIR}/default-gems ~/.default-gems
 }
 
 install_packages() {
-    sudo apt-get install -y htop zsh tree tig tmux jq silversearcher-ag
+    sudo apt-get install -y htop zsh tree tig tmux jq silversearcher-ag dh-autoreconf
 }
 
 install_languages() {
