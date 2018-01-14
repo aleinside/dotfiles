@@ -55,7 +55,7 @@ install_dotfiles() {
 }
 
 install_packages() {
-    sudo apt-get install -y htop zsh tree tig tmux jq silversearcher-ag dh-autoreconf libncurses5-dev unzip zlib1g-dev libreadline6 libreadline6-dev bzip2 libssl-dev gdbm libsqlite3-dev libbz2-dev
+    sudo apt-get install -y htop zsh tree tig tmux jq silversearcher-ag dh-autoreconf libncurses5-dev unzip zlib1g-dev libreadline6 libreadline6-dev bzip2 libssl-dev libsqlite3-dev libbz2-dev
 }
 
 #setup `mkdir ~/Works && git clone git@github.com:aleinside/dotfiles.git ~/Works/dotfiles`
