@@ -51,6 +51,7 @@ install_dotfiles() {
     cp ${DOTDIR}/git/gitignore_global ~/.gitignore_global
     mkdir -p ~/.config/nvim
     cp ${DOTDIR}/vim/wip-init.vim ~/.config/nvim/init.vim
+    git clone https://github.com/k-takata/minpac.git ~/.config/nvim/pack/minpac/opt/minpac
     cp ${DOTDIR}/default-gems ~/.default-gems
 }
 
