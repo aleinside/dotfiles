@@ -45,7 +45,7 @@ install_asdf() {
 install_dotfiles() {
     local DOTDIR=~/Works/dotfiles
     cat ${DOTDIR}/aliases >> ~/.zshrc
-    cp ${DOTDIR}/tmux.conf ~/.tmux
+    cp ${DOTDIR}/tmux.conf ~/.tmux.conf
     cp ${DOTDIR}/ctags ~/.ctags
     cp ${DOTDIR}/git/gitconfig ~/.gitconfig
     cp ${DOTDIR}/git/gitignore_global ~/.gitignore_global
