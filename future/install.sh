@@ -46,6 +46,7 @@ install_dotfiles() {
     local DOTDIR=~/Works/dotfiles
     echo 'alias doc="docker-compose"' >> ~/.zshrc
     echo 'alias vim="nvim"' >> ~/.zshrc
+    echo 'ZSH_THEME="bira"' >> ~/.zshrc
     cp ${DOTDIR}/tmux.conf ~/.tmux.conf
     cp ${DOTDIR}/ctags ~/.ctags
     cp ${DOTDIR}/git/gitconfig ~/.gitconfig
