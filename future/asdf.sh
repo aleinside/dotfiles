@@ -7,7 +7,7 @@ asdf global ruby 2.5.0
 asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
 asdf install erlang 20.2.2
 asdf global erlang 20.2.2
- 
+
 asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 asdf intsall elixir 1.5.3
 asdf global elixir 1.5.3
@@ -25,7 +25,11 @@ asdf plugin-add python https://github.com/tuvistavie/asdf-python.git
 asdf install python 2.7.14
 asdf global python 2.7.14
 
+asdf plugin-add php https://github.com/odarriba/asdf-php.git
+asdf install php 7.2.1
+asdf global php 7.2.1
+
 pip install flake8 jedi neovim
 pip install --user --upgrade neovim
-    
+
 npm install -g elm-format@exp

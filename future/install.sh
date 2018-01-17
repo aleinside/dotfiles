@@ -44,7 +44,8 @@ install_asdf() {
 
 install_dotfiles() {
     local DOTDIR=~/Works/dotfiles
-    cat ${DOTDIR}/aliases >> ~/.zshrc
+    echo 'alias doc="docker-compose"' >> ~/.zshrc
+    echo 'alias vim="nvim"' >> ~/.zshrc
     cp ${DOTDIR}/tmux.conf ~/.tmux.conf
     cp ${DOTDIR}/ctags ~/.ctags
     cp ${DOTDIR}/git/gitconfig ~/.gitconfig
@@ -56,7 +57,51 @@ install_dotfiles() {
 }
 
 install_packages() {
-    sudo apt-get install -y htop zsh tree tig tmux jq silversearcher-ag dh-autoreconf libncurses5-dev unzip zlib1g-dev libreadline6 libreadline6-dev bzip2 libssl-dev libsqlite3-dev libbz2-dev libgdbm3
+    sudo apt-get install -y \
+        htop \
+        zsh \
+        tree \
+        tig \
+        tmux \
+        jq \
+        silversearcher-ag \
+        dh-autoreconf \
+        libncurses5-dev \
+        unzip \
+        bzip2 \
+        libsqlite3-dev \
+        libbz2-dev \
+        libgdbm3 \
+        curl \
+        build-essential \
+        autoconf \
+        libjpeg-dev \
+        libpng12-dev \
+        openssl \
+        libssl-dev \
+        libcurl4-openssl-dev \
+        pkg-config \
+        libsslcommon2-dev \
+        libreadline-dev \
+        libedit-dev \
+        zlib1g-dev \
+        libicu-dev \
+        libxml2-dev \
+        gettext \
+        bison \
+        libmysqlclient-dev \
+        libpq-dev
+
+}
+
+install_phpcs() {
+    curl -L http://cs.sensiolabs.org/download/php-cs-fixer-v2.phar -o php-cs-fixer
+    sudo chmod a+x php-cs-fixer
+    sudo mv php-cs-fixer /usr/local/bin/php-cs-fixer
+}
+
+install_tpm() {
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 }
 
 #setup `mkdir ~/Works && git clone git@github.com:aleinside/dotfiles.git ~/Works/dotfiles`
@@ -64,10 +109,12 @@ install_packages() {
 install_packages
 install_oh_my_zsh
 install_fzf
-install_nerd_fonts
+#install_nerd_fonts
 install_universal_ctags
 install_neovim
 install_asdf
+install_phpcs
+install_tpm
 install_dotfiles
 
-echo "\n Esci e rientra per cambiare shell e rendere attive le modifiche: ricordati anche di asdf.sh!"
+echo "Esci e rientra per cambiare shell e rendere attive le modifiche: ricordati anche di asdf.sh!"
