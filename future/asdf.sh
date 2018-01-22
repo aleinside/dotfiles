@@ -33,4 +33,9 @@ asdf global php 7.2.1
 pip install flake8 jedi neovim
 pip install --user --upgrade neovim
 
+pip install awscli --upgrade --user
+
 npm install -g elm-format@exp
+
+wget https://raw.githubusercontent.com/composer/getcomposer.org/1b137f8bf6db3e79a38a5bc45324414a6b1f9df2/web/installer -O - -q | php -- --quiet
+sudo mv composer.phar /usr/local/bin/composer
