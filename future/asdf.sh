@@ -22,6 +22,7 @@ asdf install nodejs 9.4.0
 asdf global nodejs 9.4.0
 
 asdf plugin-add python https://github.com/tuvistavie/asdf-python.git
+asdf install python 2.7.14
 asdf install python 3.6.4
 asdf global python 3.6.4
 
