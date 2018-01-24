@@ -91,7 +91,8 @@ install_packages() {
         gettext \
         bison \
         libmysqlclient-dev \
-        libpq-dev
+        libpq-dev \
+        zip
 
 }
 
