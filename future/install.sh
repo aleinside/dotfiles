@@ -92,7 +92,8 @@ install_packages() {
         bison \
         libmysqlclient-dev \
         libpq-dev \
-        zip
+        zip \
+        openvpn
 
 }
 
