@@ -28,3 +28,11 @@ alias prima-ip-worker-production="aws ec2 describe-instances --filters Name=tag:
 alias prima-ip-worker-staging="aws ec2 describe-instances --filters Name=tag:Name,Values=ecs-allinone-staging --output text |grep PRIVATEIPADDRESSES |awk '{print \$4}'"
 
 alias fuck='sudo $(fc -ln -1)'
+
+INSTANCE_ID="i-098b1d65808d56c0a"
+alias future-start="aws ec2 start-instances --instance-ids ${INSTANCE_ID}"
+alias future-stop="aws ec2 stop-instances --instance-ids ${INSTANCE_ID}"
+alias future-status="aws ec2 describe-instance-status --instance-ids ${INSTANCE_ID}"
+alias future-info="aws ec2 describe-instances --instance-ids ${INSTANCE_ID} --output text"
+alias future-ssh="ssh dev-future"
+alias future-update-ip="/Users/ale/Works/dotfiles/bin/update-ip.sh"
