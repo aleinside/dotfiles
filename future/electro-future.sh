@@ -15,6 +15,7 @@ HOST="prima-dev"
 SSH_HOST="dev-future"
 DIR_PROJECT=~/Works/prima
 REMOTE_PATH="/home/ubuntu"
+REMINDER_TIME="1705"
 ### -------------- ###
 
 LOG_PATH="/tmp/my-sync.log"
@@ -22,6 +23,21 @@ LOG_PATH="/tmp/my-sync.log"
 INSTANCE_STATUS_CMD="aws ec2 describe-instance-status --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep SYSTEMSTATUS | awk '{print \$2}'"
 FSWATCH_CMD="fswatch -o ${DIR_PROJECT} | my_rsync ${DIR_PROJECT} ${SSH_HOST} ${REMOTE_PATH} &"
 INSTANCE_DESCRIBE_STATUS_CMD="aws ec2 describe-instances --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep -w STATE |awk '{print \$3}'"
+
+notification_for_mac() {
+    TIME="$(date +'%H%M')"
+    if [ ${TIME} != ${REMINDER_TIME} ] ; then
+        sleep 50
+        notification_for_mac $1 &
+    else
+        local CHECK_OS=$(uname -s)
+        if [[ ${CHECK_OS} == "Darwin" ]]; then
+            osascript -e 'display notification "$1" with title "Electro Future"'
+        else
+            printf "\t === Mi spiace, ma la notifica bella non funziona: $1 === \n"
+        fi
+    fi
+}
 
 my_rsync() {
     local DIR_PRJ=$1
@@ -64,6 +80,8 @@ start_services() {
     $(eval $FSWATCH_CMD) & export ELECTRO_FSWATCH_PID=$!
     printf "(PID per fswatch: ${ELECTRO_FSWATCH_PID})\n"
     printf "Puoi connetterti via ssh con ssh ${SSH_HOST}\n"
+
+
 }
 
 stop_services() {
@@ -133,6 +151,8 @@ main() {
         rewatch
     elif [[ $cmd == "logwatch" ]]; then
         logwatch
+    elif [[ $cmd == "test-notification" ]]; then
+        notification_for_mac "Prova" &
     else
         usage
     fi
