@@ -18,23 +18,23 @@ tan=$(tput setaf 3)
 blue=$(tput setaf 38)
 
 e_header() {
-  printf "\n${bold}${purple}==========  %s  ==========${reset}\n" "$@"
+    printf "\n${bold}${purple}==========  %s  ==========${reset}\n" "$@"
 }
 
 e_arrow() {
-  printf "➜ $@\n"
+    printf "➜ $@\n"
 }
 
 e_success() {
-  printf "${green}✔ %s${reset}\n" "$@"
+    printf "${green}✔ %s${reset}\n" "$@"
 }
 
 e_error() {
-  printf "${red}✖ %s${reset}\n" "$@"
+    printf "${red}✖ %s${reset}\n" "$@"
 }
 
 e_warning() {
-  printf "${tan}➜ %s${reset}\n" "$@"
+    printf "${tan}➜ %s${reset}\n" "$@"
 }
 
 notify() {
@@ -84,7 +84,7 @@ start_services() {
     INSTANCE_IP=$(aws ec2 describe-instances --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep ${IP_KEY} |head -1 |awk '{print $4}')
 
     e_success "Ottenuto IP ${INSTANCE_IP}"
-	e_warning "Aggiorno ~/.ssh/config e /etc/hosts"
+    e_warning "Aggiorno ~/.ssh/config e /etc/hosts"
 
     sed "/${HOST}/ s/.*/${INSTANCE_IP}	${HOST}/g" /etc/hosts > /tmp/hostsBK
     cat /tmp/hostsBK | sudo tee /etc/hosts 1> /dev/null
@@ -96,10 +96,10 @@ start_services() {
     e_warning "Inizializzo fswatch: log su ${LOG_PATH}"
     #fswatch -o ${DIR_PROJECT} | my_rsync ${DIR_PROJECT} ${SSH_HOST} ${REMOTE_PATH} &
     $(eval $FSWATCH_CMD) & export ELECTRO_FSWATCH_PID=$!
-	if [ $? -eq 0 ]; then
+    if [ $? -eq 0 ]; then
         e_success "(PID per fswatch: ${ELECTRO_FSWATCH_PID})"
     else
-		e_error "Problemi con fswatch"
+        e_error "Problemi con fswatch"
     fi
     e_success "Puoi connetterti via ssh con ssh ${SSH_HOST}"
 
@@ -107,7 +107,7 @@ start_services() {
 }
 
 stop_services() {
-	e_warning "Stoppo l'istanza"
+    e_warning "Stoppo l'istanza"
     aws ec2 stop-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
     sleep 5
     e_warning "Status: $(eval $INSTANCE_DESCRIBE_STATUS_CMD)"
@@ -117,11 +117,11 @@ stop_services() {
 
 check() {
     local INSTANCE_STATUS=$(eval $INSTANCE_DESCRIBE_STATUS_CMD)
-	if [[ ${INSTANCE_STATUS} != "running" ]];then
-		e_error "Stato dell'istanza: ${INSTANCE_STATUS}"
-	else
-		e_success "Stato dell'istanza: ok"
-	fi
+    if [[ ${INSTANCE_STATUS} != "running" ]];then
+        e_error "Stato dell'istanza: ${INSTANCE_STATUS}"
+    else
+        e_success "Stato dell'istanza: ok"
+    fi
     ps cax |grep fswatch > /dev/null
     if [ $? -eq 0 ]; then
         e_success "fswatch è attivo"
@@ -147,10 +147,10 @@ update() {
     e_header "Procedo con l'aggiornamento dello script"
     e_arrow "Salvo in ${SCRIPTPATH}/${SCRIPTNAME}"
     curl -fsSL ${SCRIPT_URL} -o ${SCRIPTPATH}/${SCRIPTNAME}
-	if [ $? -eq 0 ]; then
-		e_success "Aggiornamento riuscito!"
+    if [ $? -eq 0 ]; then
+        e_success "Aggiornamento riuscito!"
     else
-		e_error "Problemi nell'aggiornamento"
+        e_error "Problemi nell'aggiornamento"
     fi
 }
 
