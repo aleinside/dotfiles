@@ -19,8 +19,7 @@ REMOTE_PATH="/home/ubuntu"
 
 LOG_PATH="/tmp/my-sync.log"
 
-# INSTANCE_STATUS_CMD="aws ec2 describe-instance-status --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep SYSTEMSTATUS | awk '{print \$2}'"
-INSTANCE_STATUS_CMD="aws ec2 describe-instance-status --instance-ids ${ELECTRO_INSTANCE_ID} --output text"
+INSTANCE_STATUS_CMD="aws ec2 describe-instance-status --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep SYSTEMSTATUS | awk '{print \$2}'"
 FSWATCH_CMD="fswatch -o ${DIR_PROJECT} | my_rsync ${DIR_PROJECT} ${SSH_HOST} ${REMOTE_PATH} &"
 INSTANCE_DESCRIBE_STATUS_CMD="aws ec2 describe-instances --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep -w STATE |awk '{print \$3}'"
 
@@ -62,8 +61,7 @@ start_services() {
 
     printf "Inizializzo fswatch: log su ${LOG_PATH}\n"
     #fswatch -o ${DIR_PROJECT} | my_rsync ${DIR_PROJECT} ${SSH_HOST} ${REMOTE_PATH} &
-    $(eval $FSWATCH_CMD)
-    export ELECTRO_FSWATCH_PID = $!
+    $(eval $FSWATCH_CMD) & export ELECTRO_FSWATCH_PID=$!
     printf "(PID per fswatch: ${ELECTRO_FSWATCH_PID})\n"
     printf "Puoi connetterti via ssh con ssh ${SSH_HOST}\n"
 }
@@ -90,8 +88,7 @@ check() {
 
 rewatch() {
     printf "Rilancio fswatch\n"
-    $(eval $FSWATCH_CMD)
-    export ELECTRO_FSWATCH_PID = $!
+    $(eval $FSWATCH_CMD) & export ELECTRO_FSWATCH_PID=$!
     printf "(PID per fswatch: ${ELECTRO_FSWATCH_PID})\n"
 }
 
@@ -134,7 +131,7 @@ main() {
         check
     elif [[ $cmd == "rewatch" ]]; then
         rewatch
-    elif [[ $cmd == "logwatch" ]]; then
+    elif [[ $cmd == "logwatch" ]]; then
         logwatch
     else
         usage
