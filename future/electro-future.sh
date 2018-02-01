@@ -2,11 +2,6 @@
 #set -e
 #set -x
 
-### --- ###
-# .ssh/config
-# export ELECTRO_INSTANCE_ID
-### --- ###
-
 CONFIG_PATH=~/.config/electro/
 CONFIG_FILE="config"
 SCRIPT_URL="https://raw.githubusercontent.com/aleinside/dotfiles/master/future/electro-future.sh"
