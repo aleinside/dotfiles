@@ -25,7 +25,7 @@ FSWATCH_CMD="fswatch -o ${DIR_PROJECT} | my_rsync ${DIR_PROJECT} ${SSH_HOST} ${R
 INSTANCE_DESCRIBE_STATUS_CMD="aws ec2 describe-instances --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep -w STATE |awk '{print \$3}'"
 
 notification_for_mac() {
-    local $MSG=$1
+    local MSG=$1
     TIME="$(date +'%H%M')"
     if [ ${TIME} != ${REMINDER_TIME} ] ; then
         sleep 50
