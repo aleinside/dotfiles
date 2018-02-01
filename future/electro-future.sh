@@ -1,5 +1,6 @@
 #!/bin/bash
-set -e
+#set -e
+#set -x
 
 # configurazione cartelle e host
 # notifica https://apple.stackexchange.com/questions/57412/how-can-i-trigger-a-notification-center-notification-from-an-applescript-or-shel<Paste>
@@ -13,22 +14,24 @@ set -e
 HOST="prima-dev"
 SSH_HOST="dev-future"
 DIR_PROJECT=~/Works/prima
-REMOTE_PATH="/home/ubuntu/future"
+REMOTE_PATH="/home/ubuntu"
 ### -------------- ###
 
 LOG_PATH="/tmp/my-sync.log"
 
-INSTANCE_STATUS_CMD="aws ec2 describe-instance-status --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep SYSTEMSTATUS | awk '{print \$2}'"
+# INSTANCE_STATUS_CMD="aws ec2 describe-instance-status --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep SYSTEMSTATUS | awk '{print \$2}'"
+INSTANCE_STATUS_CMD="aws ec2 describe-instance-status --instance-ids ${ELECTRO_INSTANCE_ID} --output text"
 FSWATCH_CMD="fswatch -o ${DIR_PROJECT} | my_rsync ${DIR_PROJECT} ${SSH_HOST} ${REMOTE_PATH} &"
+INSTANCE_DESCRIBE_STATUS_CMD="aws ec2 describe-instances --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep -w STATE |awk '{print \$3}'"
 
-function my_rsync() {
-	local DIR_PRJ=$1
-	local HOST=$2
-	local REMOTE_PATH=$3
-	rsync -aruzv --exclude=.git/ ${DIR_PRJ} ${HOST}:${REMOTE_PATH} >> ${LOG_PATH} 2>&1
+my_rsync() {
+    local DIR_PRJ=$1
+    local HOST=$2
+    local REMOTE_PATH=$3
+    rsync -aruzv --exclude=.git/ ${DIR_PRJ} ${HOST}:${REMOTE_PATH} >> ${LOG_PATH} 2>&1
 }
 
-function start() {
+start_services() {
     printf "Inizio avviando l'istanza ${ELECTRO_INSTANCE_ID}\n"
 
     aws ec2 start-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
@@ -65,17 +68,18 @@ function start() {
     printf "Puoi connetterti via ssh con ssh ${SSH_HOST}\n"
 }
 
-stop() {
-    printf "Stoppa l'istanza. \n"
+stop_services() {
+    printf "Stoppo l'istanza\n"
     aws ec2 stop-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
     sleep 5
-    printf "Status: $(eval $INSTANCE_STATUS_CMD)\n"
+    printf "Status: $(eval $INSTANCE_DESCRIBE_STATUS_CMD)\n"
     printf "Killo fswatch\n"
     kill -9 ${ELECTRO_FSWATCH_PID}
 }
 
 check() {
-    printf "Status dell'istanza: $(eval $INSTANCE_STATUS_CMD)
+    local INSTANCE_STATUS=$(eval $INSTANCE_DESCRIBE_STATUS_CMD)
+    printf "Status dell'istanza: ${INSTANCE_STATUS}\n"
     ps cax |grep fswatch > /dev/null
     if [ $? -eq 0 ]; then
         printf "fswatch è attivo\n"
@@ -98,7 +102,7 @@ logwatch() {
 
 usage() {
     printf "Utilizzo ${0}:\n"
-    printf "   start: avvia la macchina e fswatch [istanza id da passare]\n"
+    printf "   start: avvia la macchina e fswatch\n"
     printf "   stop: stoppa fswatch e la macchina\n"
     printf "   check: controlla lo stato della macchina e di fswatch\n"
     printf "   rewatch: rilancia fswatch\n"
@@ -108,15 +112,24 @@ usage() {
 main() {
     local cmd=$1
 
-    if [[ -z "$cmd" ]]; then
-		usage
-		exit 1
-	fi
+    if [ -z ${ELECTRO_INSTANCE_ID+x} ]; then
+        printf "Per favore, configura la variabile ELECTRO_INSTANCE_ID\n"
+        exit
+    else
+        printf "INSTANCE ID: ${ELECTRO_INSTANCE_ID}\n"
+    fi
 
+
+    if [[ -z "$cmd" ]]; then
+        usage
+        exit 1
+    fi
+
+    printf "$cmd\n"
     if [[ $cmd == "start" ]]; then
-        start
+        start_services
     elif [[ $cmd == "stop" ]]; then
-        stop
+        stop_services
     elif [[ $cmd == "check" ]]; then
         check
     elif [[ $cmd == "rewatch" ]]; then
@@ -125,7 +138,7 @@ main() {
         logwatch
     else
         usage
-	fi
+    fi
 }
 
 main "$@"
