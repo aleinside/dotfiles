@@ -15,7 +15,7 @@ HOST="prima-dev"
 SSH_HOST="dev-future"
 DIR_PROJECT=~/Works/prima
 REMOTE_PATH="/home/ubuntu"
-REMINDER_TIME="1711"
+REMINDER_TIME="1720"
 ### -------------- ###
 
 LOG_PATH="/tmp/my-sync.log"
@@ -26,16 +26,16 @@ INSTANCE_DESCRIBE_STATUS_CMD="aws ec2 describe-instances --instance-ids ${ELECTR
 
 notification_for_mac() {
     local MSG=$1
-    TIME="$(date +'%H%M')"
+    local TIME="$(date +'%H%M')"
     if [ ${TIME} != ${REMINDER_TIME} ] ; then
         sleep 50
         notification_for_mac ${MSG} &
     else
         local CHECK_OS=$(uname -s)
         if [[ ${CHECK_OS} == "Darwin" ]]; then
-            osascript -e 'display notification "$1" with title "Electro Future"'
+            osascript -e 'display notification "${MSG}" with title "Electro Future"'
         else
-            printf "\t === Mi spiace, ma la notifica bella non funziona: $1 === \n"
+            printf "\t === Mi spiace, ma la notifica bella non funziona: ${MSG} === \n"
         fi
     fi
 }
@@ -123,7 +123,7 @@ usage() {
     printf "   check: controlla lo stato della macchina e di fswatch\n"
     printf "   rewatch: rilancia fswatch\n"
     printf "   logwatch: controlla i log di fswatch\n"
-    printf "   test-notification: testa le notifiche alle ${REMINDER_TIME}"
+    printf "   test-notification: testa le notifiche alle ${REMINDER_TIME}\n\n"
 }
 
 main() {
@@ -132,10 +132,7 @@ main() {
     if [ -z ${ELECTRO_INSTANCE_ID+x} ]; then
         printf "Per favore, configura la variabile ELECTRO_INSTANCE_ID\n"
         exit
-    else
-        printf "INSTANCE ID: ${ELECTRO_INSTANCE_ID}\n"
     fi
-
 
     if [[ -z "$cmd" ]]; then
         usage
