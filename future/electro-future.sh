@@ -15,7 +15,7 @@ HOST="prima-dev"
 SSH_HOST="dev-future"
 DIR_PROJECT=~/Works/prima
 REMOTE_PATH="/home/ubuntu"
-REMINDER_TIME="1705"
+REMINDER_TIME="1711"
 ### -------------- ###
 
 LOG_PATH="/tmp/my-sync.log"
@@ -25,10 +25,11 @@ FSWATCH_CMD="fswatch -o ${DIR_PROJECT} | my_rsync ${DIR_PROJECT} ${SSH_HOST} ${R
 INSTANCE_DESCRIBE_STATUS_CMD="aws ec2 describe-instances --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep -w STATE |awk '{print \$3}'"
 
 notification_for_mac() {
+    local $MSG=$1
     TIME="$(date +'%H%M')"
     if [ ${TIME} != ${REMINDER_TIME} ] ; then
         sleep 50
-        notification_for_mac $1 &
+        notification_for_mac ${MSG} &
     else
         local CHECK_OS=$(uname -s)
         if [[ ${CHECK_OS} == "Darwin" ]]; then
@@ -122,6 +123,7 @@ usage() {
     printf "   check: controlla lo stato della macchina e di fswatch\n"
     printf "   rewatch: rilancia fswatch\n"
     printf "   logwatch: controlla i log di fswatch\n"
+    printf "   test-notification: testa le notifiche alle ${REMINDER_TIME}"
 }
 
 main() {
@@ -140,7 +142,6 @@ main() {
         exit 1
     fi
 
-    printf "$cmd\n"
     if [[ $cmd == "start" ]]; then
         start_services
     elif [[ $cmd == "stop" ]]; then
@@ -152,7 +153,7 @@ main() {
     elif [[ $cmd == "logwatch" ]]; then
         logwatch
     elif [[ $cmd == "test-notification" ]]; then
-        notification_for_mac "Prova" &
+        notification_for_mac "Test notification" &
     else
         usage
     fi
