@@ -7,10 +7,6 @@ CONFIG_FILE="config"
 SCRIPT_URL="https://raw.githubusercontent.com/aleinside/dotfiles/master/future/electro-future.sh"
 LOG_PATH="/tmp/electro-sync.log"
 
-INSTANCE_STATUS_CMD="aws ec2 describe-instance-status --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep SYSTEMSTATUS | awk '{print \$2}'"
-FSWATCH_CMD="fswatch -o ${DIR_PROJECT} | my_rsync ${DIR_PROJECT} ${SSH_HOST} ${REMOTE_PATH} &"
-INSTANCE_DESCRIBE_STATUS_CMD="aws ec2 describe-instances --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep -w STATE |awk '{print \$3}'"
-
 bold=$(tput bold)
 underline=$(tput sgr 0 1)
 reset=$(tput sgr0)
@@ -70,7 +66,7 @@ my_rsync() {
 start_services() {
     e_header "Inizio avviando l'istanza ${ELECTRO_INSTANCE_ID}"
 
-    aws ec2 start-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
+    #aws ec2 start-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
 
     INSTANCE_STATUS=""
 
@@ -78,7 +74,7 @@ start_services() {
     do
         INSTANCE_STATUS=$(eval $INSTANCE_STATUS_CMD)
         sleep 2
-        echo "."
+        printf "."
     done
 
     e_success "Istanza pronta"
@@ -100,7 +96,11 @@ start_services() {
     e_warning "Inizializzo fswatch: log su ${LOG_PATH}"
     #fswatch -o ${DIR_PROJECT} | my_rsync ${DIR_PROJECT} ${SSH_HOST} ${REMOTE_PATH} &
     $(eval $FSWATCH_CMD) & export ELECTRO_FSWATCH_PID=$!
-    e_success "(PID per fswatch: ${ELECTRO_FSWATCH_PID})"
+	if [ $? -eq 0 ]; then
+        e_success "(PID per fswatch: ${ELECTRO_FSWATCH_PID})"
+    else
+		e_error "Problemi con fswatch"
+    fi
     e_success "Puoi connetterti via ssh con ssh ${SSH_HOST}"
 
     notification_for_mac "Ricordati di spegnere la macchina remota!" &
@@ -117,7 +117,7 @@ stop_services() {
 
 check() {
     local INSTANCE_STATUS=$(eval $INSTANCE_DESCRIBE_STATUS_CMD)
-	if [[ ${INSTANCE_STATUS} != "ok" ]];then
+	if [[ ${INSTANCE_STATUS} != "running" ]];then
 		e_error "Stato dell'istanza: ${INSTANCE_STATUS}"
 	else
 		e_success "Stato dell'istanza: ok"
@@ -160,9 +160,14 @@ usage() {
     e_arrow "stop:\t\t\t stoppa fswatch e la macchina"
     e_arrow "check:\t\t controlla lo stato della macchina e di fswatch"
     e_arrow "rewatch:\t\t rilancia fswatch"
-    e_arrow "logwatch:\t\t controlla i log di fswatch"
+    e_arrow "log:\t\t\t controlla i log di fswatch"
     e_arrow "update:\t\t aggiorna lo script"
     e_arrow "test-notification:\t testa le notifiche alle ${REMINDER_TIME}"
+    e_arrow "dc <cmd>:\t\t esegue il comando 'docker-compose <cmd>' sulla macchina di sviluppo"
+}
+
+doc_exec() {
+    ssh ${SSH_HOST} "cd ${REMOTE_PATH}/$(basename $DIR_PROJECT);docker-compose "${@:2}""
 }
 
 main() {
@@ -195,6 +200,10 @@ REMINDER_TIME="1750"
 
     source ${CONFIG_PATH}${CONFIG_FILE}
 
+    INSTANCE_STATUS_CMD="aws ec2 describe-instance-status --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep SYSTEMSTATUS | awk '{print \$2}'"
+    FSWATCH_CMD="fswatch -o ${DIR_PROJECT} | my_rsync ${DIR_PROJECT} ${SSH_HOST} ${REMOTE_PATH} &"
+    INSTANCE_DESCRIBE_STATUS_CMD="aws ec2 describe-instances --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep -w STATE |awk '{print \$3}'"
+
     if [[ $cmd == "start" ]]; then
         start_services
     elif [[ $cmd == "stop" ]]; then
@@ -203,12 +212,14 @@ REMINDER_TIME="1750"
         check
     elif [[ $cmd == "rewatch" ]]; then
         rewatch
-    elif [[ $cmd == "logwatch" ]]; then
+    elif [[ $cmd == "log" ]]; then
         logwatch
     elif [[ $cmd == "test-notification" ]]; then
         notify "Test notification" &
     elif [[ $cmd == "update" ]]; then
         update
+    elif [[ $cmd == "dc" ]]; then
+        doc_exec "$@"
     else
         usage
     fi
