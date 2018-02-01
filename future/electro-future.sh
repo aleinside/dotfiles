@@ -66,7 +66,7 @@ my_rsync() {
 start_services() {
     e_header "Inizio avviando l'istanza ${ELECTRO_INSTANCE_ID}"
 
-    #aws ec2 start-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
+    aws ec2 start-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
 
     INSTANCE_STATUS=""
 
