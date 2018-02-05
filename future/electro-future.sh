@@ -1,6 +1,6 @@
 #!/bin/bash
 #set -e
-#set -x
+set -x
 
 CONFIG_PATH=~/.config/electro/
 CONFIG_FILE="config"
@@ -111,11 +111,12 @@ stop_services() {
     aws ec2 stop-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
     sleep 5
     e_warning "Status: $(eval $INSTANCE_DESCRIBE_STATUS_CMD)"
-    e_warning "Killo fswatch"
+    e_warning "Killo fswatch: PID ${ELECTRO_FSWATCH_PID}"
     kill -9 ${ELECTRO_FSWATCH_PID}
 }
 
 check() {
+    set -x
     local INSTANCE_STATUS=$(eval $INSTANCE_DESCRIBE_STATUS_CMD)
     if [[ ${INSTANCE_STATUS} != "running" ]];then
         e_error "Stato dell'istanza: ${INSTANCE_STATUS}"
@@ -128,6 +129,7 @@ check() {
     else
         e_error "fswatch non è attivo"
     fi
+    set +x
 }
 
 rewatch() {
