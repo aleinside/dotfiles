@@ -86,8 +86,8 @@ start_services() {
 
     e_success "Istanza pronta"
 
-    #IP_KEY="PRIVATEIPADDRESS"
-    IP_KEY="ASSOCIATION"
+    IP_KEY="PRIVATEIPADDRESS"
+    #IP_KEY="ASSOCIATION"
     INSTANCE_IP=$(aws ec2 describe-instances --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep ${IP_KEY} |head -1 |awk '{print $4}')
 
     e_success "Ottenuto IP ${INSTANCE_IP}"
