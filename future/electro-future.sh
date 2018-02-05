@@ -73,16 +73,16 @@ start_services() {
         ssh-add ~/.ssh/id_rsa
     fi
 
-    aws ec2 start-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
-
-    INSTANCE_STATUS=""
-
-    while [ "${INSTANCE_STATUS}" != "ok" ]
-    do
-        INSTANCE_STATUS=$(eval $INSTANCE_STATUS_CMD)
-        sleep 2
-        printf "."
-    done
+    local INSTANCE_STATUS=$(eval $INSTANCE_DESCRIBE_STATUS_CMD)
+    if [[ ${INSTANCE_STATUS} != "stopped" ]];then
+        aws ec2 start-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
+        while [ "${INSTANCE_STATUS}" != "ok" ]
+        do
+            INSTANCE_STATUS=$(eval $INSTANCE_STATUS_CMD)
+            sleep 2
+            printf "."
+        done
+    fi
 
     e_success "Istanza pronta"
 
@@ -98,8 +98,8 @@ start_services() {
     rm /tmp/hostsBK
     #sed "/HostName/ s/.*/HostName ${INSTANCE_IP}/g" ~/.ssh/config > /tmp/sshconfig
     local OLDIP=$(grep -w ${SSH_HOST} -A 1 ~/.ssh/config | awk '/HostName/ {print $2}')
-    sed "s/${OLDIP}/${INSTANCE_IP}/g" /tmp/sshconfig > /tmp/sshconfig
-    cat /tmp/sshconfig > ~/.ssh/config
+    sed "s/${OLDIP}/${INSTANCE_IP}/g" ~/.ssh/config > /tmp/sshconfig
+    cat /tmp/sshconfig > ~/.ssh/config 1> /dev/null
     rm /tmp/sshconfig
 
     e_warning "Inizializzo fswatch: log su ${LOG_PATH}"
