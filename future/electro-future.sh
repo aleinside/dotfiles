@@ -1,6 +1,6 @@
 #!/bin/bash
-#set -e
-set -x
+set -e
+#set -x
 
 CONFIG_PATH=~/.config/electro/
 CONFIG_FILE="config"
@@ -116,7 +116,7 @@ stop_services() {
 }
 
 check() {
-    set -x
+    set +e
     local INSTANCE_STATUS=$(eval $INSTANCE_DESCRIBE_STATUS_CMD)
     if [[ ${INSTANCE_STATUS} != "running" ]];then
         e_error "Stato dell'istanza: ${INSTANCE_STATUS}"
@@ -129,7 +129,7 @@ check() {
     else
         e_error "fswatch non è attivo"
     fi
-    set +x
+    set -e
 }
 
 rewatch() {
