@@ -66,6 +66,13 @@ my_rsync() {
 start_services() {
     e_header "Inizio avviando l'istanza ${ELECTRO_INSTANCE_ID}"
 
+    local CHECK_OS=$(uname -s)
+    if [[ ${CHECK_OS} == "Darwin" ]]; then
+        ssh-add -K ~/.ssh/id_rsa
+    else
+        ssh-add ~/.ssh/id_rsa
+    fi
+
     aws ec2 start-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
 
     INSTANCE_STATUS=""
@@ -89,7 +96,9 @@ start_services() {
     sed "/${HOST}/ s/.*/${INSTANCE_IP}	${HOST}/g" /etc/hosts > /tmp/hostsBK
     cat /tmp/hostsBK | sudo tee /etc/hosts 1> /dev/null
     rm /tmp/hostsBK
-    sed "/HostName/ s/.*/HostName ${INSTANCE_IP}/g" ~/.ssh/config > /tmp/sshconfig
+    #sed "/HostName/ s/.*/HostName ${INSTANCE_IP}/g" ~/.ssh/config > /tmp/sshconfig
+    local OLDIP=$(grep -w ${SSH_HOST} -A 1 ~/.ssh/config | awk '/HostName/ {print $2}')
+    sed "s/${OLDIP}/${INSTANCE_IP}/g" /tmp/sshconfig > /tmp/sshconfig
     cat /tmp/sshconfig > ~/.ssh/config
     rm /tmp/sshconfig
 
@@ -148,7 +157,7 @@ update() {
     local SCRIPTNAME=$(basename "$0")
     e_header "Procedo con l'aggiornamento dello script"
     e_arrow "Salvo in ${SCRIPTPATH}/${SCRIPTNAME}"
-    curl -fsSL ${SCRIPT_URL} -o ${SCRIPTPATH}/${SCRIPTNAME}
+    curl -fsSL ${SCRIPT_URL} -o ${SCRIPTPATH}/${SCRIPTNAME}?ran=$(time +"%s")
     if [ $? -eq 0 ]; then
         e_success "Aggiornamento riuscito!"
     else
