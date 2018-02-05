@@ -99,7 +99,7 @@ start_services() {
     #sed "/HostName/ s/.*/HostName ${INSTANCE_IP}/g" ~/.ssh/config > /tmp/sshconfig
     local OLDIP=$(grep -w ${SSH_HOST} -A 1 ~/.ssh/config | awk '/HostName/ {print $2}')
     sed "s/${OLDIP}/${INSTANCE_IP}/g" ~/.ssh/config > /tmp/sshconfig
-    cat /tmp/sshconfig > ~/.ssh/config 1> /dev/null
+    cat /tmp/sshconfig > ~/.ssh/config
     rm /tmp/sshconfig
 
     e_warning "Inizializzo fswatch: log su ${LOG_PATH}"
