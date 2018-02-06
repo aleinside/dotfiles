@@ -157,7 +157,7 @@ update() {
     local SCRIPTNAME=$(basename "$0")
     e_header "Procedo con l'aggiornamento dello script"
     e_arrow "Salvo in ${SCRIPTPATH}/${SCRIPTNAME}"
-    curl -fsSL ${SCRIPT_URL} -o ${SCRIPTPATH}/${SCRIPTNAME}?ran=$(date +"%s")
+    curl -fsSL ${SCRIPT_URL}?ran=$(date +"%s") -o ${SCRIPTPATH}/${SCRIPTNAME}
     if [ $? -eq 0 ]; then
         e_success "Aggiornamento riuscito!"
     else
