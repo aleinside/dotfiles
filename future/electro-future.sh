@@ -96,14 +96,12 @@ start_services() {
     rm /tmp/sshconfig
 
     e_warning "Inizializzo fswatch: log su ${LOG_PATH}"
-    set -x
     $(eval $FSWATCH_CMD) & export ELECTRO_FSWATCH_PID=$!
     if [ $? -eq 0 ]; then
         e_success "(PID per fswatch: ${ELECTRO_FSWATCH_PID})"
     else
         e_error "Problemi con fswatch"
     fi
-    set +x
     e_success "Puoi connetterti via ssh con ssh ${SSH_HOST}"
 
     notification_for_mac "Ricordati di spegnere la macchina remota!" &
