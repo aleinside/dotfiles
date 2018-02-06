@@ -60,7 +60,7 @@ my_rsync() {
     local DIR_PRJ=$1
     local HOST=$2
     local REMOTE_PATH=$3
-    rsync -aruzv --exclude=.git/ ${DIR_PRJ} ${HOST}:${REMOTE_PATH} >> ${LOG_PATH} 2>&1
+    rsync -aruzv --exclude=.git/ ${DIR_PRJ} ${HOST}:${REMOTE_PATH} >> ${LOG_PATH} # 2>&1
 }
 
 start_services() {
@@ -73,8 +73,8 @@ start_services() {
         ssh-add ~/.ssh/id_rsa
     fi
 
-    local INSTANCE_STATUS=$(eval $INSTANCE_DESCRIBE_STATUS_CMD)
-    if [[ ${INSTANCE_STATUS} != "stopped" ]];then
+    #local INSTANCE_STATUS=$(eval $INSTANCE_DESCRIBE_STATUS_CMD)
+    #if [[ ${INSTANCE_STATUS} != "stopped" ]];then
         aws ec2 start-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
         while [ "${INSTANCE_STATUS}" != "ok" ]
         do
@@ -82,7 +82,7 @@ start_services() {
             sleep 2
             printf "."
         done
-    fi
+    #fi
 
     e_success "Istanza pronta"
 
@@ -104,12 +104,14 @@ start_services() {
 
     e_warning "Inizializzo fswatch: log su ${LOG_PATH}"
     #fswatch -o ${DIR_PROJECT} | my_rsync ${DIR_PROJECT} ${SSH_HOST} ${REMOTE_PATH} &
+    set -x
     $(eval $FSWATCH_CMD) & export ELECTRO_FSWATCH_PID=$!
     if [ $? -eq 0 ]; then
         e_success "(PID per fswatch: ${ELECTRO_FSWATCH_PID})"
     else
         e_error "Problemi con fswatch"
     fi
+    set +x
     e_success "Puoi connetterti via ssh con ssh ${SSH_HOST}"
 
     notification_for_mac "Ricordati di spegnere la macchina remota!" &
@@ -125,7 +127,6 @@ stop_services() {
 }
 
 check() {
-    set +e
     local INSTANCE_STATUS=$(eval $INSTANCE_DESCRIBE_STATUS_CMD)
     if [[ ${INSTANCE_STATUS} != "running" ]];then
         e_error "Stato dell'istanza: ${INSTANCE_STATUS}"
@@ -138,7 +139,6 @@ check() {
     else
         e_error "fswatch non è attivo"
     fi
-    set -e
 }
 
 rewatch() {
