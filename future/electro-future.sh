@@ -1,11 +1,14 @@
 #!/bin/bash
 set -e
-#set -x
+if [[ "1" == $ELECTRO_DEBUG ]]; then
+    set -x
+fi
 
 CONFIG_PATH=~/.config/electro/
 CONFIG_FILE="config"
 SCRIPT_URL="https://raw.githubusercontent.com/aleinside/dotfiles/master/future/electro-future.sh"
 LOG_PATH="/tmp/electro-sync.log"
+
 
 bold=$(tput bold)
 underline=$(tput sgr 0 1)
@@ -56,6 +59,15 @@ notification_for_mac() {
     fi
 }
 
+kill_fswatch() {
+    set +e
+    ps cax |grep fswatch > /dev/null
+    if [ $? -eq 0 ]; then
+        kill $(ps cax |grep fswatch |awk '{print $1}')
+    fi
+    set -e
+}
+
 start_services() {
     e_header "Inizio avviando l'istanza ${ELECTRO_INSTANCE_ID}"
 
@@ -96,9 +108,9 @@ start_services() {
     rm /tmp/sshconfig
 
     e_warning "Inizializzo fswatch: log su ${LOG_PATH}"
-    $(eval $FSWATCH_CMD) & export ELECTRO_FSWATCH_PID=$!
+    $(eval $FSWATCH_CMD) &
     if [ $? -eq 0 ]; then
-        e_success "(PID per fswatch: ${ELECTRO_FSWATCH_PID})"
+        e_success "Fswatch lanciato"
     else
         e_error "Problemi con fswatch"
     fi
@@ -112,8 +124,8 @@ stop_services() {
     aws ec2 stop-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
     sleep 5
     e_warning "Status: $(eval $INSTANCE_DESCRIBE_STATUS_CMD)"
-    e_warning "Killo fswatch: PID ${ELECTRO_FSWATCH_PID}"
-    kill -9 ${ELECTRO_FSWATCH_PID}
+    e_warning "Killo fswatch"
+    kill_fswatch
 }
 
 check() {
@@ -123,18 +135,28 @@ check() {
     else
         e_success "Stato dell'istanza: ok"
     fi
+    set +e
     ps cax |grep fswatch > /dev/null
     if [ $? -eq 0 ]; then
         e_success "fswatch è attivo"
     else
         e_error "fswatch non è attivo"
     fi
+    set -e
 }
 
 rewatch() {
+    kill_fswatch
     e_warning "Rilancio fswatch"
-    $(eval $FSWATCH_CMD) & export ELECTRO_FSWATCH_PID=$!
-    e_success "(PID per fswatch: ${ELECTRO_FSWATCH_PID})"
+    $(eval $FSWATCH_CMD) &
+    e_success "Fswatch rilanciato"
+}
+
+
+stopwatch() {
+    e_warning "Killo fswatch"
+    kill_fswatch
+    e_success "Fswatch killato"
 }
 
 logwatch() {
@@ -161,10 +183,14 @@ usage() {
     e_arrow "stop:\t\t\t stoppa fswatch e la macchina"
     e_arrow "check:\t\t controlla lo stato della macchina e di fswatch"
     e_arrow "rewatch:\t\t rilancia fswatch"
+    e_arrow "stopwatch:\t\t killa fswatch"
     e_arrow "log:\t\t\t controlla i log di fswatch"
     e_arrow "update:\t\t aggiorna lo script"
     e_arrow "test-notification:\t testa le notifiche alle ${REMINDER_TIME}"
     e_arrow "dc <cmd>:\t\t esegue il comando 'docker-compose <cmd>' sulla macchina di sviluppo"
+    printf "\n"
+    e_warning "per debug esegui: ELECTRO_DEBUG=1 electro <cmd>"
+    printf "\n"
 }
 
 doc_exec() {
@@ -212,6 +238,8 @@ REMINDER_TIME="1750"
         check
     elif [[ $cmd == "rewatch" ]]; then
         rewatch
+    elif [[ $cmd == "stopwatch" ]]; then
+        stopwatch
     elif [[ $cmd == "log" ]]; then
         logwatch
     elif [[ $cmd == "test-notification" ]]; then
