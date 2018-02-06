@@ -56,13 +56,6 @@ notification_for_mac() {
     fi
 }
 
-my_rsync() {
-    local DIR_PRJ=$1
-    local HOST=$2
-    local REMOTE_PATH=$3
-    rsync -aruzv --exclude=.git/ ${DIR_PRJ} ${HOST}:${REMOTE_PATH} >> ${LOG_PATH} # 2>&1
-}
-
 start_services() {
     e_header "Inizio avviando l'istanza ${ELECTRO_INSTANCE_ID}"
 
@@ -73,8 +66,8 @@ start_services() {
         ssh-add ~/.ssh/id_rsa
     fi
 
-    #local INSTANCE_STATUS=$(eval $INSTANCE_DESCRIBE_STATUS_CMD)
-    #if [[ ${INSTANCE_STATUS} != "stopped" ]];then
+    local INSTANCE_STATUS=$(eval $INSTANCE_DESCRIBE_STATUS_CMD)
+    if [[ ${INSTANCE_STATUS} == "stopped" ]];then
         aws ec2 start-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
         while [ "${INSTANCE_STATUS}" != "ok" ]
         do
@@ -82,7 +75,7 @@ start_services() {
             sleep 2
             printf "."
         done
-    #fi
+    fi
 
     e_success "Istanza pronta"
 
@@ -103,7 +96,6 @@ start_services() {
     rm /tmp/sshconfig
 
     e_warning "Inizializzo fswatch: log su ${LOG_PATH}"
-    #fswatch -o ${DIR_PROJECT} | my_rsync ${DIR_PROJECT} ${SSH_HOST} ${REMOTE_PATH} &
     set -x
     $(eval $FSWATCH_CMD) & export ELECTRO_FSWATCH_PID=$!
     if [ $? -eq 0 ]; then
@@ -212,9 +204,8 @@ REMINDER_TIME="1750"
     source ${CONFIG_PATH}${CONFIG_FILE}
 
     INSTANCE_STATUS_CMD="aws ec2 describe-instance-status --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep SYSTEMSTATUS | awk '{print \$2}'"
-    FSWATCH_CMD="fswatch -o ${DIR_PROJECT} | my_rsync ${DIR_PROJECT} ${SSH_HOST} ${REMOTE_PATH} &"
+    FSWATCH_CMD="fswatch -o ${DIR_PROJECT} | xargs -n1 -I{} rsync -aruzvq --delete --log-file=${LOG_PATH} --exclude=.git/ --exclude=/vendor/ --exclude=node_modules/ --exclude=web/assets/ --exclude=web/bower/ --exclude=web/compass/ --exclude=web/bundles/ --exclude=web/webpack/ --exclude=var/cache/ --exclude=var/logs/ --exclude=var/sessions/ --exclude=elm-stuff/ --exclude=app/data/ ${DIR_PROJECT} ${SSH_HOST}:${REMOTE_PATH}"
     INSTANCE_DESCRIBE_STATUS_CMD="aws ec2 describe-instances --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep -w STATE |awk '{print \$3}'"
-
     if [[ $cmd == "start" ]]; then
         start_services
     elif [[ $cmd == "stop" ]]; then
