@@ -228,7 +228,7 @@ REMINDER_TIME="1750"
     source ${CONFIG_PATH}${CONFIG_FILE}
 
     INSTANCE_STATUS_CMD="aws ec2 describe-instance-status --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep SYSTEMSTATUS | awk '{print \$2}'"
-    FSWATCH_CMD="fswatch -o ${DIR_PROJECT} | xargs -n1 -I{} rsync -aruzvq --delete --log-file=${LOG_PATH} --exclude=.git/ --exclude=/vendor/ --exclude=node_modules/ --exclude=web/assets/ --exclude=web/bower/ --exclude=web/compass/ --exclude=web/bundles/ --exclude=web/webpack/ --exclude=var/cache/ --exclude=var/logs/ --exclude=var/sessions/ --exclude=elm-stuff/ --exclude=app/data/ ${DIR_PROJECT} ${SSH_HOST}:${REMOTE_PATH}"
+    FSWATCH_CMD="fswatch -o ${DIR_PROJECT} | xargs -n1 -I{} rsync -aruzvq --delete --log-file=${LOG_PATH} --exclude=.git/ --exclude=vendor/ --exclude=node_modules/ --exclude=web/assets/ --exclude=web/bower/ --exclude=web/compass/ --exclude=web/bundles/ --exclude=web/webpack/ --exclude=var/cache/ --exclude=var/logs/ --exclude=var/sessions/ --exclude=elm-stuff/ --exclude=app/data/ ${DIR_PROJECT} ${SSH_HOST}:${REMOTE_PATH}"
     INSTANCE_DESCRIBE_STATUS_CMD="aws ec2 describe-instances --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep -w STATE |awk '{print \$3}'"
     if [[ $cmd == "start" ]]; then
         start_services
