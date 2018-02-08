@@ -9,7 +9,6 @@ CONFIG_FILE="config"
 SCRIPT_URL="https://raw.githubusercontent.com/aleinside/dotfiles/master/future/electro-future.sh"
 LOG_PATH="/tmp/electro-sync.log"
 
-
 bold=$(tput bold)
 underline=$(tput sgr 0 1)
 reset=$(tput sgr0)
@@ -62,10 +61,24 @@ notification_for_mac() {
 kill_fswatch() {
     set +e
     ps cax |grep fswatch > /dev/null
-    if [ $? -eq 0 ]; then
+    local status=$?
+    if $(exit status); then
         kill $(ps cax |grep fswatch |awk '{print $1}')
     fi
     set -e
+}
+
+should_start_fswatch() {
+    local status=true
+    for var in "$@"
+    do
+        echo "$var"
+        if [ $var == "--nowatch" ]; then
+            status=false
+            break
+        fi
+    done
+    ${status}
 }
 
 start_services() {
@@ -107,12 +120,14 @@ start_services() {
     cat /tmp/sshconfig > ~/.ssh/config
     rm /tmp/sshconfig
 
-    e_warning "Inizializzo fswatch: log su ${LOG_PATH}"
-    $(eval $FSWATCH_CMD) &
-    if [ $? -eq 0 ]; then
-        e_success "Fswatch lanciato"
-    else
-        e_error "Problemi con fswatch"
+    if [ should_start_fswatch "$@" ];then
+        e_warning "Inizializzo fswatch: log su ${LOG_PATH}"
+        $(eval $FSWATCH_CMD) &
+        if [ $? -eq 0 ]; then
+            e_success "Fswatch lanciato"
+        else
+            e_error "Problemi con fswatch"
+        fi
     fi
     e_success "Puoi connetterti via ssh con ssh ${SSH_HOST}"
 
@@ -179,7 +194,7 @@ update() {
 
 usage() {
     e_header "Utilizzo $(basename $0)"
-    e_arrow "start:\t\t avvia la macchina e fswatch"
+    e_arrow "start:\t\t avvia la macchina e fswatch se non viene passata l'opzione --nowatch"
     e_arrow "stop:\t\t\t stoppa fswatch e la macchina"
     e_arrow "check:\t\t controlla lo stato della macchina e di fswatch"
     e_arrow "rewatch:\t\t rilancia fswatch"
@@ -231,7 +246,7 @@ REMINDER_TIME="1750"
     FSWATCH_CMD="fswatch -o ${DIR_PROJECT} | xargs -n1 -I{} rsync -aruzvq --delete --log-file=${LOG_PATH} --exclude=.git/ --exclude=vendor/ --exclude=node_modules/ --exclude=web/assets/ --exclude=web/bower/ --exclude=web/compass/ --exclude=web/bundles/ --exclude=web/webpack/ --exclude=var/cache/ --exclude=var/logs/ --exclude=var/sessions/ --exclude=elm-stuff/ --exclude=app/data/ ${DIR_PROJECT} ${SSH_HOST}:${REMOTE_PATH}"
     INSTANCE_DESCRIBE_STATUS_CMD="aws ec2 describe-instances --instance-ids ${ELECTRO_INSTANCE_ID} --output text |grep -w STATE |awk '{print \$3}'"
     if [[ $cmd == "start" ]]; then
-        start_services
+        start_services "$@"
     elif [[ $cmd == "stop" ]]; then
         stop_services
     elif [[ $cmd == "check" ]]; then
