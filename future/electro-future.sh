@@ -1,8 +1,18 @@
 #!/bin/bash
-set -e
+set -euo pipefail
+IFS=$'\n\t'
+ELECTRO_DEBUG="0"
 if [[ "1" == $ELECTRO_DEBUG ]]; then
     set -x
 fi
+
+# configuration vabiables, read from config file
+ELECTRO_INSTANCE_ID="i-xxx"
+HOST="prima"
+SSH_HOST="dev-prima"
+DIR_PROJECT=""
+REMOTE_PATH="/home/ubuntu"
+REMINDER_TIME="1750"
 
 CONFIG_PATH=~/.config/electro/
 CONFIG_FILE="config"
@@ -213,7 +223,7 @@ doc_exec() {
 }
 
 main() {
-    local cmd=$1
+    local cmd=${1:-}
 
     if [ ! -f ${CONFIG_PATH}${CONFIG_FILE} ]; then
         e_warning "Creo file di configurazione in ${CONFIG_PATH}"
