@@ -60,9 +60,10 @@ notification_for_mac() {
 
 kill_fswatch() {
     set +e
+    # local status=$?
+    # if $(exit status); then
     ps cax |grep fswatch > /dev/null
-    local status=$?
-    if $(exit status); then
+    if [ $? -eq 0 ]; then
         kill $(ps cax |grep fswatch |awk '{print $1}')
     fi
     set -e
