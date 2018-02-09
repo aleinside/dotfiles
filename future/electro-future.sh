@@ -73,7 +73,6 @@ should_start_fswatch() {
     local status=true
     for var in "$@"
     do
-        echo "$var"
         if [ $var == "--nowatch" ]; then
             status=false
             break
@@ -93,7 +92,7 @@ start_services() {
     fi
 
     local INSTANCE_STATUS=$(eval $INSTANCE_DESCRIBE_STATUS_CMD)
-    if [[ ${INSTANCE_STATUS} == "stopped" ]];then
+    if [[ ${INSTANCE_STATUS} == "stopped" ]]; then
         aws ec2 start-instances --instance-ids ${ELECTRO_INSTANCE_ID} > /dev/null
         while [ "${INSTANCE_STATUS}" != "ok" ]
         do
@@ -121,7 +120,7 @@ start_services() {
     cat /tmp/sshconfig > ~/.ssh/config
     rm /tmp/sshconfig
 
-    if [ should_start_fswatch "$@" ];then
+    if should_start_fswatch "$@"; then
         e_warning "Inizializzo fswatch: log su ${LOG_PATH}"
         $(eval $FSWATCH_CMD) &
         if [ $? -eq 0 ]; then
@@ -146,7 +145,7 @@ stop_services() {
 
 check() {
     local INSTANCE_STATUS=$(eval $INSTANCE_DESCRIBE_STATUS_CMD)
-    if [[ ${INSTANCE_STATUS} != "running" ]];then
+    if [[ ${INSTANCE_STATUS} != "running" ]]; then
         e_error "Stato dell'istanza: ${INSTANCE_STATUS}"
     else
         e_success "Stato dell'istanza: ok"
