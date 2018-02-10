@@ -11,9 +11,13 @@ ELECTRO_INSTANCE_ID="i-xxx"
 HOST="prima"
 SSH_HOST="dev-prima"
 DIR_PROJECT=""
+# opzionale
 REMOTE_PATH="/home/ubuntu"
+# opzionale
 REMINDER_TIME="1750"
 
+
+PING_VPN="10.33.4.8"
 CONFIG_PATH=~/.config/electro/
 CONFIG_FILE="config"
 SCRIPT_URL="https://raw.githubusercontent.com/aleinside/dotfiles/master/future/electro-future.sh"
@@ -68,6 +72,16 @@ notification_for_mac() {
     fi
 }
 
+check_vpn() {
+    set +e
+    ping ${PING_VPN} -c 2 > /dev/null
+    if [ ! $? -eq 0 ]; then
+        e_warning "Non hai attivato la VPN!"
+        exit
+    fi
+    set -e
+}
+
 kill_fswatch() {
     set +e
     # local status=$?
@@ -93,6 +107,8 @@ should_start_fswatch() {
 
 start_services() {
     e_header "Inizio avviando l'istanza ${ELECTRO_INSTANCE_ID}"
+
+    check_vpn
 
     local CHECK_OS=$(uname -s)
     if [[ ${CHECK_OS} == "Darwin" ]]; then
@@ -230,11 +246,9 @@ main() {
         mkdir -p ${CONFIG_PATH}
         touch ${CONFIG_PATH}${CONFIG_FILE}
         echo 'ELECTRO_INSTANCE_ID="i-xxx"
-HOST="prima-dev"
+HOST="prima"
 SSH_HOST="dev-prima"
 DIR_PROJECT=~/Documents/prima
-REMOTE_PATH="/home/ubuntu"
-REMINDER_TIME="1750"
 ' > ${CONFIG_PATH}${CONFIG_FILE}
 
         e_warning "Ricordati di configurare il file!"
