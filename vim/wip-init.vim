@@ -47,6 +47,9 @@ if exists('*minpac#init')
   call minpac#add('junegunn/fzf', {'dir': '~/.fzf', 'do': '!./install --all'})
   call minpac#add('junegunn/fzf.vim')
 
+  " Startifyù
+  call minpac#add('mhinz/vim-startify')
+
   let g:make = 'gmake'
   if exists('make')
     let g:make = 'make'
@@ -82,10 +85,6 @@ if exists('*minpac#init')
   "" Javascript Bundle
   call minpac#add('jelera/vim-javascript-syntax')
 
-  " php
-  "" PHP Bundle
-  call minpac#add('arnaud-lb/vim-php-namespace')
-
   " python
   "" Python Bundle
   call minpac#add('davidhalter/jedi-vim')
@@ -106,12 +105,11 @@ if exists('*minpac#init')
   call minpac#add('c-brenn/phoenix.vim')
 
   " php
-  call minpac#add('stanangeloff/php.vim')
   call minpac#add('lvht/phpcd.vim')
   "" symfony
   call minpac#add('docteurklein/vim-symfony')
   " PHP autocomplete
-  call minpac#add('shawncplus/phpcomplete.vim')
+  "call minpac#add('shawncplus/phpcomplete.vim')
   " PHPcomplete
   "call minpac#add('m2mdas/phpcomplete-extended')
   " PHPcomplete symfony
@@ -167,6 +165,12 @@ if exists('*minpac#init')
 
   " undo history visualizer
   call minpac#add('mbbill/undotree')
+
+  " multiple cursors
+  call minpac#add('terryma/vim-multiple-cursors')
+
+  " formatting
+  call minpac#add('sbdchd/neoformat')
 endif
 
 
@@ -337,6 +341,11 @@ augroup vimrc-make-cmake
 augroup END
 
 autocmd  FileType  php setlocal omnifunc=phpcomplete_extended#CompletePHP
+
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
 
 set autoread
 
@@ -539,12 +548,16 @@ function! IPhpInsertUse()
     call PhpInsertUse()
     call feedkeys('a',  'n')
 endfunction
-autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()
-autocmd FileType php noremap <Leader>u :call PhpInsertUse()
+autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 
 " PHP documentator
 let g:pdv_template_dir = $HOME ."/.config/nvim/plugged/pdv/templates_snip"
 nnoremap <Leader>** :call pdv#DocumentWithSnip()
+
+" php cs fixer
+command! -nargs=1 Silent execute ':silent !'.<q-args> | execute ':redraw!'
+map <C-s> <esc>:w<CR>:Silent php-cs-fixer fix %:p --level=symfony<CR>
 
 " undotree
 nnoremap <F5> :UndotreeToggle<CR>
@@ -552,6 +565,8 @@ if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
+
+let test#elixir#exunit#executable = 'docker-compose run web mix test'
 
 " Esc to exit from :terminal
 tnoremap <Esc> <C-\><C-n>
