@@ -74,7 +74,7 @@ notification_for_mac() {
 
 check_vpn() {
     set +e
-    ping ${PING_VPN} -c 2 > /dev/null
+    ping -c2 ${PING_VPN} > /dev/null
     if [ ! $? -eq 0 ]; then
         e_warning "Non hai attivato la VPN!"
         exit
