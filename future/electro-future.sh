@@ -17,7 +17,7 @@ readonly config_path=~/.config/electro/
 readonly config_file="config"
 readonly script_url="https://raw.githubusercontent.com/aleinside/dotfiles/master/future/electro-future.sh"
 readonly log_path="/tmp/electro-log/"
-readonly rsync_options="--exclude=.git/ --exclude=vendor/ --exclude=node_modules/ --exclude=web/assets/ --exclude=web/bower/ --exclude=web/compass/ --exclude=web/bundles/ --exclude=web/webpack/ --exclude=var/cache/ --exclude=var/logs/ --exclude=var/sessions/ --exclude=elm-stuff/ --exclude=app/data/ --exclude=_build/ --exclude=deps/ "
+readonly rsync_options="--exclude=.git/ --exclude=vendor/ --exclude=node_modules/ --exclude=web/assets/ --exclude=web/bower/ --exclude=web/compass/stylesheets/ --exclude=web/bundles/ --exclude=var/cache/ --exclude=var/logs/ --exclude=var/sessions/ --exclude=elm-stuff/ --exclude=_build/ --exclude=deps/ "
 readonly bold=$(tput bold)
 readonly reset=$(tput sgr0)
 readonly purple=$(tput setaf 171)
