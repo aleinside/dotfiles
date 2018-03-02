@@ -1,5 +1,4 @@
-datagrip
-docker
+dbeaver-community
 evernote
 font-hack-nerd-font
 google-chrome
