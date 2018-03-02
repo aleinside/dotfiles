@@ -1,6 +1,3 @@
-"" Map leader to ,
-let mapleader=','
-
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
 nnoremap n nzzzv
@@ -34,9 +31,6 @@ noremap <Leader>v :<C-u>vsplit<CR>
 
 "" Set working directory
 nnoremap <leader>. :lcd %:p:h<CR>
-
-"" Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 "" Opens a tab edit command with the path of the currently edited file filled
 noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>

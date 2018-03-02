@@ -7,6 +7,9 @@ if &compatible
   set nocompatible
 endif
 
+"" Map leader to ,
+let mapleader=','
+
 " install minpac
 " git clone https://github.com/k-takata/minpac.git ~/.config/nvim/pack/minpac/opt/minpac
 
