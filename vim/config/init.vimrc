@@ -77,7 +77,7 @@ if exists('*minpac#init')
   " multiple cursors
   call minpac#add('terryma/vim-multiple-cursors')
   " Delete buffers and close files in Vim without closing your windows or messing up your layou
-  call minpac#add 'moll/vim-bbye'
+  call minpac#add('moll/vim-bbye')
   """ GIT
   " git wrapper
   call minpac#add('tpope/vim-fugitive')
@@ -161,14 +161,15 @@ if exists('*minpac#init')
   call minpac#add('arnaud-lb/vim-php-namespace', {'for': 'php'})
   " PHP vim syntax
   call minpac#add('StanAngeloff/php.vim')
-
-  "call minpac#add('stephpy/vim-php-cs-fixer')
+  " php cs fixer
+  call minpac#add('stephpy/vim-php-cs-fixer')
+  " php namespace
+  call minpac#add('arnaud-lb/vim-php-namespace')
 
   "call minpac#add('roxma/nvim-completion-manager')
 
   "call minpac#add('phpactor/phpactor', {'do': 'composer install'})
   "call minpac#add('roxma/ncm-phpactor')
-  "call minpac#add('arnaud-lb/vim-php-namespace')
 
   " php autocompletion engine and tools
   "call minpac#add('nishigori/vim-php-dictionary')
@@ -189,3 +190,7 @@ if exists('*minpac#init')
   call minpac#add('infoslack/vim-docker')
 endif
 
+" Declare the general config group for autocommand
+augroup vimrc
+  autocmd!
+augroup END
