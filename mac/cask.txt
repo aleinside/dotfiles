@@ -1,10 +1,15 @@
+datagrip
 dbeaver-community
+docker
 evernote
 font-hack-nerd-font
 google-chrome
+iterm2
+java8
+jdownloader
 kindle
 nordvpn
-openoffice
 slack
 spotify
+spotify-notifications
 vlc
