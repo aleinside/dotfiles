@@ -72,11 +72,5 @@ vmap > >gv
 " Esc to exit from :terminal
 tnoremap <Esc> <C-\><C-n>
 
-" Define user commands for updating/cleaning the plugins.
-" Each of them loads minpac, reloads .vimrc to register the
-" information of plugins, then performs the task.
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
-command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
-
 " F7 to format file (http://vim.wikia.com/wiki/Fix_indentation)
 map <F7> mzgg=G`z
