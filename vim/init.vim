@@ -13,5 +13,6 @@ source $HOME/.config/nvim/config/plugins/undotree.vimrc
 source $HOME/.config/nvim/config/plugins/phpnamespace.vimrc
 " source $HOME/.config/nvim/config/plugins/phpqa.vimrc
 " source $HOME/.config/nvim/config/plugins/phpstan.vimrc
+source $HOME/.config/nvim/config/plugins/ale.vimrc
 source $HOME/.config/nvim/config/keys.vimrc
 source $HOME/.config/nvim/config/autocmd.vimrc

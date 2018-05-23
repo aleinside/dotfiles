@@ -191,7 +191,7 @@ Plug 'evidens/vim-twig'
 Plug 'infoslack/vim-docker'
 
 " neoformat
-Plug 'sbdchd/neoformat'
+"Plug 'sbdchd/neoformat'
 
 call plug#end()
 
