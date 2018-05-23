@@ -126,7 +126,7 @@ Plug 'tomasr/molokai'
 
 """ LANGUAGES
 " elixir
-Plug 'elixir-lang/vim-elixir'
+Plug 'elixir-editors/vim-elixir'
 Plug 'carlosgaldino/elixir-snippets'
 
 " elm
