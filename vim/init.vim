@@ -7,7 +7,7 @@ source $HOME/.config/nvim/config/plugins/fzf.vimrc
 source $HOME/.config/nvim/config/plugins/nerdtree.vimrc
 source $HOME/.config/nvim/config/plugins/tagbar.vimrc
 source $HOME/.config/nvim/config/plugins/undotree.vimrc
-source $HOME/.config/nvim/config/plugins/php-cs-fixer.vimrc
+" source $HOME/.config/nvim/config/plugins/php-cs-fixer.vimrc
 " source $HOME/.config/nvim/config/plugins/php-refactoring-toolbox.vimrc
 " source $HOME/.config/nvim/config/plugins/phpactor.vimrc
 source $HOME/.config/nvim/config/plugins/phpnamespace.vimrc

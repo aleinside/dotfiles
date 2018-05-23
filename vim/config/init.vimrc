@@ -163,7 +163,7 @@ Plug 'arnaud-lb/vim-php-namespace', {'for': 'php'}
 " PHP vim syntax
 Plug 'StanAngeloff/php.vim'
 " php cs fixer
-Plug 'stephpy/vim-php-cs-fixer'
+"Plug 'stephpy/vim-php-cs-fixer'
 " php namespace
 Plug 'arnaud-lb/vim-php-namespace'
 
