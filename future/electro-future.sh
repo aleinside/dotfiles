@@ -12,7 +12,7 @@ SSH_HOST="dev-prima"
 REMOTE_PATH="/home/ubuntu"
 REMINDER_TIME="1750"
 
-readonly ping_vpn="10.33.4.8"
+readonly ping_vpn="10.254.0.250"
 readonly config_path=~/.config/electro/
 readonly config_file="config"
 readonly script_url="https://raw.githubusercontent.com/aleinside/dotfiles/master/future/electro-future.sh"
