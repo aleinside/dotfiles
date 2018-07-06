@@ -74,3 +74,5 @@ tnoremap <Esc> <C-\><C-n>
 
 " F7 to format file (http://vim.wikia.com/wiki/Fix_indentation)
 map <F7> mzgg=G`z
+
+noremap <leader>json :%!jq '.'

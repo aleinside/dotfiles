@@ -44,6 +44,8 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 """" GENERAL
 " advanced syntax vim script
 Plug 'vim-jp/syntax-vim-ex'
+" json
+Plug 'elzr/vim-json'
 " trailing whitespace
 Plug 'bronson/vim-trailing-whitespace'
 " language pack
