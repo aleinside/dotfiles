@@ -126,6 +126,9 @@ Plug 'vim-scripts/CSApprox'
 Plug 'Yggdroot/indentLine'
 Plug 'tomasr/molokai'
 
+""" PROSE
+Plug 'reedes/vim-pencil'
+
 """ LANGUAGES
 " elixir
 Plug 'elixir-editors/vim-elixir'
