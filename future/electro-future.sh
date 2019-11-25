@@ -191,10 +191,12 @@ check() {
     fswatch_pid=$(cat "${pid_file}" 2> /dev/null)
     if ps -p "${fswatch_pid}" &> /dev/null; then
         e_success "fswatch è attivo"
+	set -e
     else
         e_error "fswatch non è attivo"
+	set -e
+	exit 1
     fi
-    set -e
 }
 
 killall_fswatch() {
