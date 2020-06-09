@@ -12,7 +12,7 @@ let mapleader=','
 
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 
-let g:vim_bootstrap_langs = "elixir,elm,html,javascript,php,python"
+let g:vim_bootstrap_langs = "elixir,elm,html,javascript,python"
 let g:vim_bootstrap_editor = "nvim"				" nvim or vim
 
 if !filereadable(vimplug_exists)
@@ -30,16 +30,6 @@ endif
 
 " Required:
 call plug#begin(expand('~/.config/nvim/plugged'))
-
-"" Snippets
-"Plug 'SirVer/ultisnips'
-"Plug 'honza/vim-snippets'
-" PHP documentator
-"Plug 'tobys/pdv'
-" Mustache template system (per pdv)
-"Plug 'tobys/vmustache'
-" unload, delete or wipe a buffer without closing the window or split
-"Plug 'qpkorr/vim-bufkill'
 
 """" GENERAL
 " advanced syntax vim script
@@ -138,6 +128,12 @@ Plug 'carlosgaldino/elixir-snippets'
 "" Elm Bundle
 Plug 'elmcast/elm-vim'
 
+" Rust Plugins
+if executable('rustc')
+  Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+  Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+endif
+
 " html
 "" HTML Bundle
 Plug 'hail2u/vim-css3-syntax'
@@ -162,41 +158,13 @@ Plug 'jtratner/vim-flavored-markdown'
 Plug 'slashmili/alchemist.vim'
 Plug 'c-brenn/phoenix.vim'
 
-" php
-" PHP namespace
-Plug 'arnaud-lb/vim-php-namespace', {'for': 'php'}
-" PHP vim syntax
-Plug 'StanAngeloff/php.vim'
-" php cs fixer
-"Plug 'stephpy/vim-php-cs-fixer'
-" php namespace
-Plug 'arnaud-lb/vim-php-namespace'
-
-"Plug 'roxma/nvim-completion-manager'
-
-"Plug 'phpactor/phpactor', {'do': 'composer install'}
-"Plug 'roxma/ncm-phpactor'
-
-" php autocompletion engine and tools
-"Plug 'nishigori/vim-php-dictionary'
-"Plug 'phpstan/vim-phpstan'
-
-" php doc autocompletion
-"Plug 'tobyS/vmustache'
-"Plug 'tobyS/pdv'
-
-" refactoring options
-"Plug 'adoy/vim-php-refactoring-toolbox'
-"Plug '2072/php-indenting-for-vim'
-
-" twig
-Plug 'evidens/vim-twig'
-
 " docker
 Plug 'infoslack/vim-docker'
 
 " neoformat
 "Plug 'sbdchd/neoformat'
+
+Plug 'junegunn/vader.vim'
 
 call plug#end()
 
